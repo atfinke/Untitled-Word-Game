@@ -16,6 +16,8 @@ class Board:
         self.min_y = min_y
         self.max_y = max_y
 
+        self.min_word_value = 0
+
         self.game_dictionary = GameDictionary()
 
     def new_words_for_tile_placements(self, tile_placements: List[TilePlacement]) -> Tuple[Set[str], List[TilePlacement]]:
@@ -23,9 +25,6 @@ class Board:
         nearby_tiles = set()
 
         for tile_placement in tile_placements:
-            x = tile_placement.space.x
-            y = tile_placement.space.y
-
             horizontal_tile_placements = self.tiles_left_and_right(tile_placement)
             vertical_tile_placements = self.tiles_above_and_below(tile_placement)
 
@@ -43,21 +42,31 @@ class Board:
 
     def is_valid_placement(self, tile_placements: List[TilePlacement]) -> int:
         new_board = Board(tile_placements=self.tile_placements.copy(), min_x=self.min_x, max_x=self.max_x, min_y=self.min_y, max_y=self.max_y)
-        try:
-            new_board.add_tiles(tile_placements)
-            words_to_check, _ = new_board.new_words_for_tile_placements(tile_placements)
+        for tile_placement in tile_placements:
+            x = tile_placement.space.x
+            y = tile_placement.space.y
+            new_board.tile_placements[x, y] = tile_placement
+        words_to_check, _ = new_board.new_words_for_tile_placements(tile_placements)
 
-            value = 0
-            for word in words_to_check:
-                if word not in self.game_dictionary.scrabble_words:
-                    # print('Invalid: ' + word)
-                    return 0
-                else:
-                    # print('Valid: ' + word)
-                    value += self.game_dictionary.scrabble_words[word]
-            return value
-        except:
-            return 0
+        value = 0
+        for word in words_to_check:
+            if word not in self.game_dictionary.scrabble_words:
+                # print('Invalid: ' + word)
+                return 0, None
+            else:
+                # print('Valid: ' + word)
+                value += self.game_dictionary.scrabble_words[word]
+        
+        if value >= self.min_word_value:
+            return value, words_to_check
+        else:
+            characters = list(map(lambda x: x.tile.character, tile_placements))
+            if 'R' in characters or 'D' in characters:
+                return value, words_to_check
+            else:
+                return 0, words_to_check
+    
+    # def value_for_tiles(self, tile_placements: List[TilePlacement]):
 
     def tiles_above_and_below(self, tile_placement):
         x = tile_placement.space.x
@@ -93,7 +102,22 @@ class Board:
         else:
             return []
 
-    def add_tiles(self, tile_placements: List[TilePlacement]) -> Tuple[Set[str], List[TilePlacement]]:
+    def add_player_tiles(self, tile_placements: List[TilePlacement]) -> Tuple[Set[str], List[TilePlacement]]:
+        characters = list(map(lambda x: x.tile.character, tile_placements))
+        characters_str = ''.join(characters)
+
+        has_special_characters = 'R' in characters or 'D' in characters
+        value, words = self.is_valid_placement(tile_placements)
+        assert value >= self.min_word_value or has_special_characters
+
+        prev = self.min_word_value
+        if has_special_characters:
+            self.min_word_value = 0
+        else:
+            self.min_word_value = value
+
+        print('played: {} -> {} | ({} -> {})'.format(characters_str, words, prev, self.min_word_value))
+        
         for tile_placement in tile_placements:
             x = tile_placement.space.x
             y = tile_placement.space.y
@@ -101,10 +125,45 @@ class Board:
             self.max_x = max(self.max_x, x)
             self.min_y = min(self.min_y, y)
             self.max_y = max(self.max_y, y)
-            if (x, y) in self.tile_placements:
-                raise ValueError('{} already at {},{} (cant place {})'.format(self.tile_placements[x, y], x, y, tile_placement.tile.character))
+            
             self.tile_placements[x, y] = tile_placement
-        return self.new_words_for_tile_placements(tile_placements)
+
+
+        words_to_check, nearby_tiles = self.new_words_for_tile_placements(tile_placements)
+        if 'D' in characters:
+            self.tile_placements = {}
+            self.min_x = 0
+            self.max_x = 0
+            self.min_y = 0
+            self.max_y = 0
+
+            for tile_placement in nearby_tiles.union(tile_placements):
+                x = tile_placement.space.x
+                y = tile_placement.space.y
+
+                self.min_x = min(self.min_x, x)
+                self.max_x = max(self.max_x, x)
+                self.min_y = min(self.min_y, y)
+                self.max_y = max(self.max_y, y)
+
+                self.tile_placements[x, y] = tile_placement
+            
+        pass
+
+    def tiles_for_player_that_failed(self):
+        print("taking the board")
+        tiles = list(map(lambda x: x.tile, self.tile_placements.values()))
+
+        self.tile_placements = {}
+
+        self.min_x = 0
+        self.max_x = 0
+        self.min_y = 0
+        self.max_y = 0
+
+        self.min_word_value = 0
+        
+        return tiles
 
     # #yikes, doesn't account for a bunch of things, super inefficient
     def spaces_for_characters(self, n):
