@@ -24,52 +24,31 @@ def _worker(worker_data):
         print()
         raise e
 
-
 def worker(worker_data):
-    board, tiles_to_use_count, spaces_for_characters, tiles = worker_data
-    words_with_tiles_to_use_spaces = spaces_for_characters[tiles_to_use_count]
+    board, word, tiles_to_use = worker_data
+    
+    placements = []
+    spaces = [s for s in word if isinstance(s, Space)]
+    for index, tile_to_use in enumerate(tiles_to_use):
+        try:
+            placements.append(TilePlacement(tile_to_use, spaces[index]))
+        except:
+            print(1)
 
-    max_placements = None
-    max_placements_value = 0
+    new_word = ''
+    space_index = 0
+    for thing in word:
+        if isinstance(thing, Space):
+            new_word += placements[space_index].tile.character
+            space_index += 1
+        else:
+            new_word += thing.tile.character
 
-    start = time.time()
-    max_time = 15
+    if new_word not in board.game_dictionary.common_words:
+        return (None, 0)
 
-    for tiles_to_use in itertools.permutations(tiles, r=tiles_to_use_count):
-        if time.time() - start > max_time:
-            break
-
-        for word in words_with_tiles_to_use_spaces:
-
-            if time.time() - start > max_time:
-                break
-
-            placements = []
-            spaces = [s for s in word if isinstance(s, Space)]
-            for index, tile_to_use in enumerate(tiles_to_use):
-                try:
-                    placements.append(TilePlacement(tile_to_use, spaces[index]))
-                except:
-                    print(1)
-
-            new_word = ''
-            space_index = 0
-            for thing in word:
-                if isinstance(thing, Space):
-                    new_word += placements[space_index].tile.character
-                    space_index += 1
-                else:
-                    new_word += thing.tile.character
-
-            if new_word not in board.game_dictionary.common_words:
-                continue
-
-            value = board.is_valid_placement(placements)
-            if value > max_placements_value:
-                max_placements_value = value
-                max_placements = placements
-    return (max_placements, max_placements_value)
-
+    value = board.is_valid_placement(placements)
+    return (placements, value)
 
 class Player:
 
@@ -78,19 +57,18 @@ class Player:
         self.face_down_tiles = []
 
     def play_word(self, board) -> Optional[List[TilePlacement]]:
-
         spaces_for_characters = board.spaces_for_characters(len(self.tiles))
 
-        max_placements = None
-        max_placements_value = 0
-
-        #
         worker_data = []
         for tiles_to_use_count in range(1, len(self.tiles) + 1):
-            worker_data.append((board, tiles_to_use_count, spaces_for_characters, self.tiles))
+            words_with_tiles_to_use_spaces = spaces_for_characters[tiles_to_use_count]
+            for tiles_to_use in itertools.permutations(self.tiles, r=tiles_to_use_count):
+                for word in words_with_tiles_to_use_spaces:
+                    worker_data.append((board, word, tiles_to_use))
 
-        pool = multiprocessing.Pool(processes=7)
-        results = pool.map(_worker, worker_data)
+        worker_data.reverse()
+        pool = multiprocessing.Pool(processes=20)
+        results = pool.map(worker, worker_data)
 
         # results = []
         # for d in worker_data:
