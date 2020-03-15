@@ -12,6 +12,8 @@ class Simulate:
 
     def __init__(self):
 
+        self.tiles_per_player = 5
+
         self._player1 = Player()
         self._player2 = Player()
         self._player3 = Player()
@@ -35,9 +37,14 @@ class Simulate:
         # self._player1.tiles = [Tile('Q')]
         # self.board.min_word_value = 10
         # print(self.board)
+
+        turns = 0
+
+        self.tile_pile.grab(40)
         
         while True:
-            print('\n\np{} turn:'.format(self.player_turn + 1))
+            turns += 1
+            print('\n\np{} turn: ({})'.format(self.player_turn + 1, turns))
             self.add_move()
             print(self.board)
             for i, p in enumerate(self._players):
@@ -49,9 +56,9 @@ class Simulate:
             #     return
 
     def configure_player(self, player):
-        tiles = self.tile_pile.grab(7)
+        tiles = self.tile_pile.grab(self.tiles_per_player)
         player.add_face_down_tiles(tiles)
-        tiles = self.tile_pile.grab(7)
+        tiles = self.tile_pile.grab(self.tiles_per_player)
         player.add_tiles(tiles)
 
     def add_move(self):
@@ -60,8 +67,9 @@ class Simulate:
 
         if placements:
             self.board.add_player_tiles(placements)
-            tiles_needed = 7 - len(player.tiles)
-            player.add_tiles(self.tile_pile.grab(tiles_needed))
+            tiles_needed = self.tiles_per_player - len(player.tiles)
+            if tiles_needed > 0:
+                player.add_tiles(self.tile_pile.grab(tiles_needed))
 
             if len(player.tiles) == 0:
                 if len(player.face_down_tiles) == 0:
