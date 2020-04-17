@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14923C01244A144300F23211 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14923C00244A144300F23211 /* Board.swift */; };
+		14923C03244A145000F23211 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14923C02244A145000F23211 /* BoardPosition.swift */; };
 		14AE4E252447938900C35EEC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE4E242447938900C35EEC /* main.swift */; };
+		14AE4E2D2447B1FB00C35EEC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE4E2C2447B1FB00C35EEC /* Node.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +26,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14923C00244A144300F23211 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		14923C02244A145000F23211 /* BoardPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
 		14AE4E212447938900C35EEC /* word.proto */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = word.proto; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AE4E242447938900C35EEC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		14AE4E2B2447AE1300C35EEC /* scrabble_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = scrabble_words.txt; path = ../../../python/scrabble_words.txt; sourceTree = "<group>"; };
+		14AE4E2C2447B1FB00C35EEC /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,10 @@
 			isa = PBXGroup;
 			children = (
 				14AE4E242447938900C35EEC /* main.swift */,
+				14923C00244A144300F23211 /* Board.swift */,
+				14923C02244A145000F23211 /* BoardPosition.swift */,
+				14AE4E2C2447B1FB00C35EEC /* Node.swift */,
+				14AE4E2B2447AE1300C35EEC /* scrabble_words.txt */,
 			);
 			path = word.proto;
 			sourceTree = "<group>";
@@ -120,7 +131,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14923C03244A145000F23211 /* BoardPosition.swift in Sources */,
 				14AE4E252447938900C35EEC /* main.swift in Sources */,
+				14923C01244A144300F23211 /* Board.swift in Sources */,
+				14AE4E2D2447B1FB00C35EEC /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
