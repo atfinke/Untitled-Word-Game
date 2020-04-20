@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14EAFB0C244D709A00769F75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB0B244D709A00769F75 /* AppDelegate.swift */; };
+		14EAFB0E244D709A00769F75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB0D244D709A00769F75 /* SceneDelegate.swift */; };
+		14EAFB10244D709A00769F75 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB0F244D709A00769F75 /* ViewController.swift */; };
+		14EAFB13244D709A00769F75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB11244D709A00769F75 /* Main.storyboard */; };
+		14EAFB15244D709C00769F75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB14244D709C00769F75 /* Assets.xcassets */; };
+		14EAFB18244D709C00769F75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB16244D709C00769F75 /* LaunchScreen.storyboard */; };
+		14EAFB46244D70BA00769F75 /* D-D.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB20244D70BA00769F75 /* D-D.txt */; };
+		14EAFB47244D70BA00769F75 /* D-S.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB21244D70BA00769F75 /* D-S.txt */; };
+		14EAFB48244D70BA00769F75 /* D-R.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB22244D70BA00769F75 /* D-R.txt */; };
+		14EAFB49244D70BA00769F75 /* D-E.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB23244D70BA00769F75 /* D-E.txt */; };
+		14EAFB4A244D70BA00769F75 /* D-G.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB24244D70BA00769F75 /* D-G.txt */; };
+		14EAFB4B244D70BA00769F75 /* D-P.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB25244D70BA00769F75 /* D-P.txt */; };
+		14EAFB4C244D70BA00769F75 /* D-Q.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB26244D70BA00769F75 /* D-Q.txt */; };
+		14EAFB4D244D70BA00769F75 /* D-F.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB27244D70BA00769F75 /* D-F.txt */; };
+		14EAFB4E244D70BA00769F75 /* D-U.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB28244D70BA00769F75 /* D-U.txt */; };
+		14EAFB4F244D70BA00769F75 /* D-B.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB29244D70BA00769F75 /* D-B.txt */; };
+		14EAFB50244D70BA00769F75 /* D-C.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2A244D70BA00769F75 /* D-C.txt */; };
+		14EAFB51244D70BA00769F75 /* D-T.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2B244D70BA00769F75 /* D-T.txt */; };
+		14EAFB52244D70BA00769F75 /* D-V.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2C244D70BA00769F75 /* D-V.txt */; };
+		14EAFB53244D70BA00769F75 /* D-A.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2D244D70BA00769F75 /* D-A.txt */; };
+		14EAFB54244D70BA00769F75 /* D-W.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2E244D70BA00769F75 /* D-W.txt */; };
+		14EAFB55244D70BA00769F75 /* D-Z.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB2F244D70BA00769F75 /* D-Z.txt */; };
+		14EAFB56244D70BA00769F75 /* D-M.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB30244D70BA00769F75 /* D-M.txt */; };
+		14EAFB57244D70BA00769F75 /* D-L.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB31244D70BA00769F75 /* D-L.txt */; };
+		14EAFB58244D70BA00769F75 /* D-Y.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB32244D70BA00769F75 /* D-Y.txt */; };
+		14EAFB59244D70BA00769F75 /* D-N.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB33244D70BA00769F75 /* D-N.txt */; };
+		14EAFB5A244D70BA00769F75 /* D-O.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB34244D70BA00769F75 /* D-O.txt */; };
+		14EAFB5B244D70BA00769F75 /* D-X.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB35244D70BA00769F75 /* D-X.txt */; };
+		14EAFB5C244D70BA00769F75 /* D-K.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB36244D70BA00769F75 /* D-K.txt */; };
+		14EAFB5D244D70BA00769F75 /* D-J.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB37244D70BA00769F75 /* D-J.txt */; };
+		14EAFB5E244D70BA00769F75 /* D-H.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB38244D70BA00769F75 /* D-H.txt */; };
+		14EAFB5F244D70BA00769F75 /* D-I.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB39244D70BA00769F75 /* D-I.txt */; };
+		14EAFB60244D70BA00769F75 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB3A244D70BA00769F75 /* Axis.swift */; };
+		14EAFB61244D70BA00769F75 /* DictionaryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB3B244D70BA00769F75 /* DictionaryFilter.swift */; };
+		14EAFB63244D70BA00769F75 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB3D244D70BA00769F75 /* BoardPosition.swift */; };
+		14EAFB64244D70BA00769F75 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB3E244D70BA00769F75 /* Board.swift */; };
+		14EAFB65244D70BA00769F75 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB3F244D70BA00769F75 /* Direction.swift */; };
+		14EAFB66244D70BA00769F75 /* TileBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB40244D70BA00769F75 /* TileBag.swift */; };
+		14EAFB67244D70BA00769F75 /* _Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB41244D70BA00769F75 /* _Game.swift */; };
+		14EAFB68244D70BA00769F75 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB42244D70BA00769F75 /* Node.swift */; };
+		14EAFB69244D70BA00769F75 /* GameAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB43244D70BA00769F75 /* GameAI.swift */; };
+		14EAFB6A244D70BA00769F75 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFB44244D70BA00769F75 /* Dictionary.swift */; };
+		14EAFB6B244D70BA00769F75 /* filtered_sorted_words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 14EAFB45244D70BA00769F75 /* filtered_sorted_words.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		14EAFB08244D709A00769F75 /* word.proto.perf.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = word.proto.perf.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		14EAFB0B244D709A00769F75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		14EAFB0D244D709A00769F75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		14EAFB0F244D709A00769F75 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		14EAFB12244D709A00769F75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		14EAFB14244D709C00769F75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		14EAFB17244D709C00769F75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		14EAFB19244D709C00769F75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14EAFB20244D70BA00769F75 /* D-D.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-D.txt"; sourceTree = "<group>"; };
+		14EAFB21244D70BA00769F75 /* D-S.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-S.txt"; sourceTree = "<group>"; };
+		14EAFB22244D70BA00769F75 /* D-R.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-R.txt"; sourceTree = "<group>"; };
+		14EAFB23244D70BA00769F75 /* D-E.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-E.txt"; sourceTree = "<group>"; };
+		14EAFB24244D70BA00769F75 /* D-G.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-G.txt"; sourceTree = "<group>"; };
+		14EAFB25244D70BA00769F75 /* D-P.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-P.txt"; sourceTree = "<group>"; };
+		14EAFB26244D70BA00769F75 /* D-Q.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Q.txt"; sourceTree = "<group>"; };
+		14EAFB27244D70BA00769F75 /* D-F.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-F.txt"; sourceTree = "<group>"; };
+		14EAFB28244D70BA00769F75 /* D-U.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-U.txt"; sourceTree = "<group>"; };
+		14EAFB29244D70BA00769F75 /* D-B.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-B.txt"; sourceTree = "<group>"; };
+		14EAFB2A244D70BA00769F75 /* D-C.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-C.txt"; sourceTree = "<group>"; };
+		14EAFB2B244D70BA00769F75 /* D-T.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-T.txt"; sourceTree = "<group>"; };
+		14EAFB2C244D70BA00769F75 /* D-V.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-V.txt"; sourceTree = "<group>"; };
+		14EAFB2D244D70BA00769F75 /* D-A.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-A.txt"; sourceTree = "<group>"; };
+		14EAFB2E244D70BA00769F75 /* D-W.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-W.txt"; sourceTree = "<group>"; };
+		14EAFB2F244D70BA00769F75 /* D-Z.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Z.txt"; sourceTree = "<group>"; };
+		14EAFB30244D70BA00769F75 /* D-M.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-M.txt"; sourceTree = "<group>"; };
+		14EAFB31244D70BA00769F75 /* D-L.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-L.txt"; sourceTree = "<group>"; };
+		14EAFB32244D70BA00769F75 /* D-Y.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Y.txt"; sourceTree = "<group>"; };
+		14EAFB33244D70BA00769F75 /* D-N.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-N.txt"; sourceTree = "<group>"; };
+		14EAFB34244D70BA00769F75 /* D-O.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-O.txt"; sourceTree = "<group>"; };
+		14EAFB35244D70BA00769F75 /* D-X.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-X.txt"; sourceTree = "<group>"; };
+		14EAFB36244D70BA00769F75 /* D-K.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-K.txt"; sourceTree = "<group>"; };
+		14EAFB37244D70BA00769F75 /* D-J.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-J.txt"; sourceTree = "<group>"; };
+		14EAFB38244D70BA00769F75 /* D-H.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-H.txt"; sourceTree = "<group>"; };
+		14EAFB39244D70BA00769F75 /* D-I.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-I.txt"; sourceTree = "<group>"; };
+		14EAFB3A244D70BA00769F75 /* Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Axis.swift; path = ../../word.proto/word.proto/Axis.swift; sourceTree = "<group>"; };
+		14EAFB3B244D70BA00769F75 /* DictionaryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryFilter.swift; path = ../../word.proto/word.proto/DictionaryFilter.swift; sourceTree = "<group>"; };
+		14EAFB3D244D70BA00769F75 /* BoardPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoardPosition.swift; path = ../../word.proto/word.proto/BoardPosition.swift; sourceTree = "<group>"; };
+		14EAFB3E244D70BA00769F75 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Board.swift; path = ../../word.proto/word.proto/Board.swift; sourceTree = "<group>"; };
+		14EAFB3F244D70BA00769F75 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Direction.swift; path = ../../word.proto/word.proto/Direction.swift; sourceTree = "<group>"; };
+		14EAFB40244D70BA00769F75 /* TileBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TileBag.swift; path = ../../word.proto/word.proto/TileBag.swift; sourceTree = "<group>"; };
+		14EAFB41244D70BA00769F75 /* _Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _Game.swift; path = ../../word.proto/word.proto/_Game.swift; sourceTree = "<group>"; };
+		14EAFB42244D70BA00769F75 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Node.swift; path = ../../word.proto/word.proto/Node.swift; sourceTree = "<group>"; };
+		14EAFB43244D70BA00769F75 /* GameAI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameAI.swift; path = ../../word.proto/word.proto/GameAI.swift; sourceTree = "<group>"; };
+		14EAFB44244D70BA00769F75 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dictionary.swift; path = ../../word.proto/word.proto/Dictionary.swift; sourceTree = "<group>"; };
+		14EAFB45244D70BA00769F75 /* filtered_sorted_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = filtered_sorted_words.txt; path = ../../word.proto/word.proto/filtered_sorted_words.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		14EAFB05244D709A00769F75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14EAFAFF244D709A00769F75 = {
+			isa = PBXGroup;
+			children = (
+				14EAFB0A244D709A00769F75 /* word.proto.perf.ios */,
+				14EAFB09244D709A00769F75 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		14EAFB09244D709A00769F75 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14EAFB08244D709A00769F75 /* word.proto.perf.ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		14EAFB0A244D709A00769F75 /* word.proto.perf.ios */ = {
+			isa = PBXGroup;
+			children = (
+				14EAFB0B244D709A00769F75 /* AppDelegate.swift */,
+				14EAFB0D244D709A00769F75 /* SceneDelegate.swift */,
+				14EAFB0F244D709A00769F75 /* ViewController.swift */,
+				14EAFB11244D709A00769F75 /* Main.storyboard */,
+				14EAFB14244D709C00769F75 /* Assets.xcassets */,
+				14EAFB16244D709C00769F75 /* LaunchScreen.storyboard */,
+				14EAFB19244D709C00769F75 /* Info.plist */,
+				14EAFB41244D70BA00769F75 /* _Game.swift */,
+				14EAFB3A244D70BA00769F75 /* Axis.swift */,
+				14EAFB3E244D70BA00769F75 /* Board.swift */,
+				14EAFB3D244D70BA00769F75 /* BoardPosition.swift */,
+				14EAFB44244D70BA00769F75 /* Dictionary.swift */,
+				14EAFB3B244D70BA00769F75 /* DictionaryFilter.swift */,
+				14EAFB3F244D70BA00769F75 /* Direction.swift */,
+				14EAFB45244D70BA00769F75 /* filtered_sorted_words.txt */,
+				14EAFB43244D70BA00769F75 /* GameAI.swift */,
+				14EAFB42244D70BA00769F75 /* Node.swift */,
+				14EAFB40244D70BA00769F75 /* TileBag.swift */,
+				14EAFB1F244D70BA00769F75 /* Dictionary */,
+			);
+			path = word.proto.perf.ios;
+			sourceTree = "<group>";
+		};
+		14EAFB1F244D70BA00769F75 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				14EAFB20244D70BA00769F75 /* D-D.txt */,
+				14EAFB21244D70BA00769F75 /* D-S.txt */,
+				14EAFB22244D70BA00769F75 /* D-R.txt */,
+				14EAFB23244D70BA00769F75 /* D-E.txt */,
+				14EAFB24244D70BA00769F75 /* D-G.txt */,
+				14EAFB25244D70BA00769F75 /* D-P.txt */,
+				14EAFB26244D70BA00769F75 /* D-Q.txt */,
+				14EAFB27244D70BA00769F75 /* D-F.txt */,
+				14EAFB28244D70BA00769F75 /* D-U.txt */,
+				14EAFB29244D70BA00769F75 /* D-B.txt */,
+				14EAFB2A244D70BA00769F75 /* D-C.txt */,
+				14EAFB2B244D70BA00769F75 /* D-T.txt */,
+				14EAFB2C244D70BA00769F75 /* D-V.txt */,
+				14EAFB2D244D70BA00769F75 /* D-A.txt */,
+				14EAFB2E244D70BA00769F75 /* D-W.txt */,
+				14EAFB2F244D70BA00769F75 /* D-Z.txt */,
+				14EAFB30244D70BA00769F75 /* D-M.txt */,
+				14EAFB31244D70BA00769F75 /* D-L.txt */,
+				14EAFB32244D70BA00769F75 /* D-Y.txt */,
+				14EAFB33244D70BA00769F75 /* D-N.txt */,
+				14EAFB34244D70BA00769F75 /* D-O.txt */,
+				14EAFB35244D70BA00769F75 /* D-X.txt */,
+				14EAFB36244D70BA00769F75 /* D-K.txt */,
+				14EAFB37244D70BA00769F75 /* D-J.txt */,
+				14EAFB38244D70BA00769F75 /* D-H.txt */,
+				14EAFB39244D70BA00769F75 /* D-I.txt */,
+			);
+			name = Dictionary;
+			path = ../../word.proto/word.proto/Dictionary;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		14EAFB07244D709A00769F75 /* word.proto.perf.ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 14EAFB1C244D709C00769F75 /* Build configuration list for PBXNativeTarget "word.proto.perf.ios" */;
+			buildPhases = (
+				14EAFB04244D709A00769F75 /* Sources */,
+				14EAFB05244D709A00769F75 /* Frameworks */,
+				14EAFB06244D709A00769F75 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = word.proto.perf.ios;
+			productName = word.proto.perf.ios;
+			productReference = 14EAFB08244D709A00769F75 /* word.proto.perf.ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		14EAFB00244D709A00769F75 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Andrew Finke";
+				TargetAttributes = {
+					14EAFB07244D709A00769F75 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 14EAFB03244D709A00769F75 /* Build configuration list for PBXProject "word.proto.perf.ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 14EAFAFF244D709A00769F75;
+			productRefGroup = 14EAFB09244D709A00769F75 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				14EAFB07244D709A00769F75 /* word.proto.perf.ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		14EAFB06244D709A00769F75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14EAFB6B244D70BA00769F75 /* filtered_sorted_words.txt in Resources */,
+				14EAFB48244D70BA00769F75 /* D-R.txt in Resources */,
+				14EAFB55244D70BA00769F75 /* D-Z.txt in Resources */,
+				14EAFB49244D70BA00769F75 /* D-E.txt in Resources */,
+				14EAFB58244D70BA00769F75 /* D-Y.txt in Resources */,
+				14EAFB59244D70BA00769F75 /* D-N.txt in Resources */,
+				14EAFB5C244D70BA00769F75 /* D-K.txt in Resources */,
+				14EAFB56244D70BA00769F75 /* D-M.txt in Resources */,
+				14EAFB18244D709C00769F75 /* LaunchScreen.storyboard in Resources */,
+				14EAFB5B244D70BA00769F75 /* D-X.txt in Resources */,
+				14EAFB50244D70BA00769F75 /* D-C.txt in Resources */,
+				14EAFB4E244D70BA00769F75 /* D-U.txt in Resources */,
+				14EAFB4B244D70BA00769F75 /* D-P.txt in Resources */,
+				14EAFB51244D70BA00769F75 /* D-T.txt in Resources */,
+				14EAFB15244D709C00769F75 /* Assets.xcassets in Resources */,
+				14EAFB4F244D70BA00769F75 /* D-B.txt in Resources */,
+				14EAFB47244D70BA00769F75 /* D-S.txt in Resources */,
+				14EAFB4A244D70BA00769F75 /* D-G.txt in Resources */,
+				14EAFB46244D70BA00769F75 /* D-D.txt in Resources */,
+				14EAFB52244D70BA00769F75 /* D-V.txt in Resources */,
+				14EAFB57244D70BA00769F75 /* D-L.txt in Resources */,
+				14EAFB5F244D70BA00769F75 /* D-I.txt in Resources */,
+				14EAFB53244D70BA00769F75 /* D-A.txt in Resources */,
+				14EAFB5D244D70BA00769F75 /* D-J.txt in Resources */,
+				14EAFB13244D709A00769F75 /* Main.storyboard in Resources */,
+				14EAFB54244D70BA00769F75 /* D-W.txt in Resources */,
+				14EAFB5A244D70BA00769F75 /* D-O.txt in Resources */,
+				14EAFB4D244D70BA00769F75 /* D-F.txt in Resources */,
+				14EAFB5E244D70BA00769F75 /* D-H.txt in Resources */,
+				14EAFB4C244D70BA00769F75 /* D-Q.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		14EAFB04244D709A00769F75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14EAFB10244D709A00769F75 /* ViewController.swift in Sources */,
+				14EAFB0C244D709A00769F75 /* AppDelegate.swift in Sources */,
+				14EAFB68244D70BA00769F75 /* Node.swift in Sources */,
+				14EAFB69244D70BA00769F75 /* GameAI.swift in Sources */,
+				14EAFB67244D70BA00769F75 /* _Game.swift in Sources */,
+				14EAFB61244D70BA00769F75 /* DictionaryFilter.swift in Sources */,
+				14EAFB66244D70BA00769F75 /* TileBag.swift in Sources */,
+				14EAFB60244D70BA00769F75 /* Axis.swift in Sources */,
+				14EAFB63244D70BA00769F75 /* BoardPosition.swift in Sources */,
+				14EAFB64244D70BA00769F75 /* Board.swift in Sources */,
+				14EAFB6A244D70BA00769F75 /* Dictionary.swift in Sources */,
+				14EAFB0E244D709A00769F75 /* SceneDelegate.swift in Sources */,
+				14EAFB65244D70BA00769F75 /* Direction.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		14EAFB11244D709A00769F75 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14EAFB12244D709A00769F75 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		14EAFB16244D709C00769F75 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14EAFB17244D709C00769F75 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		14EAFB1A244D709C00769F75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		14EAFB1B244D709C00769F75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		14EAFB1D244D709C00769F75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 72S993BNAV;
+				INFOPLIST_FILE = word.proto.perf.ios/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrewfinke.word-proto-perf-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		14EAFB1E244D709C00769F75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 72S993BNAV;
+				INFOPLIST_FILE = word.proto.perf.ios/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.andrewfinke.word-proto-perf-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		14EAFB03244D709A00769F75 /* Build configuration list for PBXProject "word.proto.perf.ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14EAFB1A244D709C00769F75 /* Debug */,
+				14EAFB1B244D709C00769F75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		14EAFB1C244D709C00769F75 /* Build configuration list for PBXNativeTarget "word.proto.perf.ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				14EAFB1D244D709C00769F75 /* Debug */,
+				14EAFB1E244D709C00769F75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 14EAFB00244D709A00769F75 /* Project object */;
+}

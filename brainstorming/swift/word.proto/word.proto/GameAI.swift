@@ -9,58 +9,45 @@
 import Foundation
 
 class GameAI {
+    
+    // MARK: - Types -
+    
+    struct Move {
+        let placed: [BoardPosition: UInt8]
+        let value: Int
+    }
+    
+    // MARK: - Properties -
 
     private let dictionary: Dictionary
     private let queue = OperationQueue()
 
-    private let serialQueue = DispatchQueue(label: "sd")
+    private let movesQueue = DispatchQueue(label: "com.andrewfinke.moves")
 
     // MARK: - State -
 
     private var board: Board
     private var tiles: [UInt8]
 
-    private var verticalCrossChecks = [BoardPosition: [UInt8]]()
-    private var horizontalCrossChecks = [BoardPosition: [UInt8]]()
+    private var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
+    private var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
 
-    private var foundWords = [[UInt8]]()
+    private var moves = [Move]()
+    
+    // MARK: - Initalization -
 
     init(dictionary: Dictionary, board: Board) {
         self.dictionary = dictionary
         self.board = board
         self.tiles = []
     }
+    
+    // MARK: - Check Moves -
 
-    // could make better by only looking at updated positions
-    func updateCrossChecks() {
-        var verticalCrossChecks = [BoardPosition: [UInt8]]()
-        var horizontalCrossChecks = [BoardPosition: [UInt8]]()
-        for anchor in board.anchors() {
-            verticalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .vertical)
-            horizontalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .horizontal)
-        }
-        self.verticalCrossChecks = verticalCrossChecks
-        self.horizontalCrossChecks = horizontalCrossChecks
-    }
-
-    func isLetterValid(_ letter: UInt8, at position: BoardPosition, axis: Axis) -> Bool {
-        switch axis {
-        case .horizontal:
-            if let crossCheck = horizontalCrossChecks[position] {
-                return crossCheck.contains(letter)
-            }
-        case .vertical:
-            if let crossCheck = verticalCrossChecks[position] {
-                return crossCheck.contains(letter)
-            }
-        }
-        return true
-    }
-
-    func moves(for board: Board, with tiles: [UInt8]) {
+    func moves(for board: Board, with tiles: [UInt8]) -> [Move] {
         self.board = board
         self.tiles = tiles
-        self.foundWords = []
+        self.moves = []
 
         updateCrossChecks()
         for anchor in board.anchors() {
@@ -74,10 +61,9 @@ class GameAI {
             queue.addOperation(verticalOperation)
         }
         queue.waitUntilAllOperationsAreFinished()
-//        let words = Set(foundWords).compactMap { word -> String? in
-//            return String(bytes: word, encoding: .utf8)
-//        }
-//        print(words.sorted())
+        return movesQueue.sync {
+            return self.moves
+        }
     }
 
     private func checkMoves(at anchor: BoardPosition, with tiles: [UInt8], axis: Axis) {
@@ -101,6 +87,7 @@ class GameAI {
             buildSuffix(anchor: anchor,
                        position: anchor,
                        prefix: prefix,
+                       placed: [:],
                        node: node,
                        tiles: tiles,
                        axis: axis)
@@ -108,6 +95,7 @@ class GameAI {
             buildSuffix(anchor: anchor,
                        position: anchor,
                        prefix: [],
+                       placed: [:],
                        node: dictionary.root,
                        tiles: tiles,
                        axis: axis)
@@ -117,6 +105,7 @@ class GameAI {
                 buildPrefix(anchor: anchor,
                           position: position,
                           prefix: [],
+                          placed: [:],
                           node: dictionary.root,
                           tiles: tiles,
                           axis: axis)
@@ -128,16 +117,68 @@ class GameAI {
 
     // MARK: - Main Logic -
 
-    private func handlePossibleMove(prefix: [UInt8], axis: Axis) {
-//        let word = prefix.joined()
-        let isValid = dictionary.isValid(word: prefix)
-        assert(isValid)
-        foundWords.append(prefix)
+    private func found(move: Move) {
+        moves.append(move)
+    }
+    
+    private func score(placed: [BoardPosition: UInt8], finalLetterPosition: BoardPosition, axis: Axis) -> Int {
+        // Calc value of word along op axis
+        let opAxisPointChecks = axis == .horizontal ? verticalCrossChecks : horizontalCrossChecks
+        var crossPoints = 0
+        for (position, letter) in placed {
+            // since we only cross check anchors (open spots next to letters), non-cross checks are zero
+            let letterCrossPoints = opAxisPointChecks[position]?[letter] ?? 0
+            crossPoints += letterCrossPoints
+        }
+        
+        let sort: ((BoardPosition, BoardPosition) -> Bool)
+        let prevDirection: Direction
+        let nextDirection: Direction
+        if axis == .horizontal {
+            sort = { $0.x < $1.x }
+            prevDirection = .left
+            nextDirection = .right
+        } else {
+            sort = { $0.y > $1.y }
+            prevDirection = .top
+            nextDirection = .bottom
+        }
+        
+        // Calc value of word along axis from first placed to last letter on board/placed
+        var coreValue = 0
+        let minPosition = placed.keys.sorted(by: sort)[0]
+        var position = minPosition
+        let tooFarPosition = finalLetterPosition.offset(nextDirection)
+        while position != tooFarPosition {
+            let letter: UInt8
+            if let new = placed[position] {
+                letter = new
+            } else if let existing = board.placements[position] {
+                letter = existing
+            } else {
+                fatalError()
+            }
+            guard let value = TileBag.characterTileValues[letter] else { fatalError() }
+            coreValue += value
+            position = position.offset(nextDirection)
+        }
+        
+        // Calc value of word along axis before first placed letter
+        var preValue = 0
+        var prevPosition = minPosition.offset(prevDirection)
+        while let prevPlacement = board.placements[prevPosition] {
+            guard let value = TileBag.characterTileValues[prevPlacement] else { fatalError() }
+            preValue += value
+            prevPosition = prevPosition.offset(prevDirection)
+        }
+        
+        return crossPoints + coreValue + preValue
     }
 
     private func buildSuffix(anchor: BoardPosition,
                             position: BoardPosition,
                             prefix: [UInt8],
+                            placed: [BoardPosition: UInt8],
                             node: Node,
                             tiles: [UInt8],
                             axis: Axis) {
@@ -145,31 +186,30 @@ class GameAI {
 
         if let existingLetter = board.placements[position] {
             guard let existingLetterNode = node.edges[existingLetter] else { return }
-            let (newPrefix, newTiles) = prefixAndTiles(with: existingLetter,
-                                                       prefix: prefix,
-                                                       tiles: tiles,
-                                                       removeTile: false)
+            let (newPrefix, newTiles, newPlaced) = state(forNew: existingLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: false)
+            
             buildSuffix(anchor: anchor,
                        position: position.offset(nextDirection),
                        prefix: newPrefix,
+                       placed: newPlaced,
                        node: existingLetterNode,
                        tiles: newTiles,
                        axis: axis)
         } else {
             if anchor != position && node.isEOW {
-                serialQueue.async {
-//                    let dir: Direction = axis == .horizontal ? .left : .top
-//                    print("\na:\(anchor), p: \(position.offset(dir))")
-                    self.handlePossibleMove(prefix: prefix, axis: axis)
+                let prevDirection: Direction = axis == .horizontal ? .left : .top
+                let value = score(placed: placed, finalLetterPosition: position.offset(prevDirection), axis: axis)
+                let move = Move(placed: placed, value: value)
+                movesQueue.async {
+                    self.found(move: move)
                 }
             }
-            for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterValid(edgeLetter, at: position, axis: axis.other) {
-                let (newPrefix, newTiles) = prefixAndTiles(with: edgeLetter,
-                                                           prefix: prefix,
-                                                           tiles: tiles)
+            for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterCrossValid(edgeLetter, at: position, axis: axis.other) {
+                let (newPrefix, newTiles, newPlaced) = state(forNew: edgeLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: true)
                 buildSuffix(anchor: anchor,
                            position: position.offset(nextDirection),
                            prefix: newPrefix,
+                           placed: newPlaced,
                            node: edgeNode,
                            tiles: newTiles,
                            axis: axis)
@@ -180,6 +220,7 @@ class GameAI {
     private func buildPrefix(anchor: BoardPosition,
                            position: BoardPosition,
                            prefix: [UInt8],
+                           placed: [BoardPosition: UInt8],
                            node: Node,
                            tiles: [UInt8],
                            axis: Axis) {
@@ -189,69 +230,116 @@ class GameAI {
             buildSuffix(anchor: anchor,
                        position: position,
                        prefix: prefix,
+                       placed: placed,
                        node: node,
                        tiles: tiles,
                        axis: axis)
             return
         }
 
-        for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterValid(edgeLetter, at: position, axis: axis.other) {
-            let (newPrefix, newTiles) = prefixAndTiles(with: edgeLetter,
-                                                       prefix: prefix,
-                                                       tiles: tiles)
+        for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterCrossValid(edgeLetter, at: position, axis: axis.other) {
+            let (newPrefix, newTiles, newPlaced) = state(forNew: edgeLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: true)
             buildPrefix(anchor: anchor,
                       position: position.offset(nextDirection),
                       prefix: newPrefix,
+                      placed: newPlaced,
                       node: edgeNode,
                       tiles: newTiles,
                       axis: axis)
         }
     }
-
-    // MARK: - Helpers -
-
-    private func prefixAndTiles(with letter: UInt8,
-                                prefix: [UInt8],
-                                tiles: [UInt8],
-                                removeTile: Bool = true) -> (prefix: [UInt8], tiles: [UInt8]) {
-        var prefixCopy = prefix
-        prefixCopy.append(letter)
-
-        var tilesCopy = tiles
-        if removeTile {
-            guard let index = tilesCopy.firstIndex(of: letter) else { fatalError() }
-            tilesCopy.remove(at: index)
+    
+    // MARK: - Cross Checks -
+    
+    // could make better by only looking at updated positions
+    func updateCrossChecks() {
+        var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
+        var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
+        for anchor in board.anchors() {
+            verticalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .vertical)
+            horizontalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .horizontal)
         }
-        return (prefixCopy, tilesCopy)
+        self.verticalCrossChecks = verticalCrossChecks
+        self.horizontalCrossChecks = horizontalCrossChecks
     }
-
-    private func crossCheck(board: Board, for letters: [UInt8], at position: BoardPosition, axis: Axis) -> [UInt8] {
-        var prefix = [UInt8]()
-        let prefixDirection: Direction = axis == .vertical ? .top : .left
-        var pos = position.offset(prefixDirection)
-        while let letter = board.placements[pos] {
-            prefix.insert(letter, at: 0)
-            pos = pos.offset(prefixDirection)
+    
+    private func crossCheck(board: Board, for letters: [UInt8], at position: BoardPosition, axis: Axis) -> [UInt8: Int] {
+        func check(prefix: Bool) -> (letters: [UInt8], value: Int) {
+            var letters = [UInt8]()
+            var lettersValue = 0
+            let direction: Direction
+            if prefix {
+                direction = axis == .vertical ? .top : .left
+            } else {
+                direction = axis == .vertical ? .bottom : .right
+            }
+            var pos = position.offset(direction)
+            while let letter = board.placements[pos] {
+                if prefix {
+                    letters.insert(letter, at: 0)
+                } else {
+                    letters.append(letter)
+                }
+                pos = pos.offset(direction)
+                guard let value = TileBag.characterTileValues[letter] else { fatalError() }
+                lettersValue += value
+            }
+            return (letters, lettersValue)
         }
+        
+        let (prefix, prefixValue) = check(prefix: true)
+        let (suffix, suffixValue) = check(prefix: false)
+        let endsValue = prefixValue + suffixValue
 
-        var suffix = [UInt8]()
-        let suffixDirection: Direction = axis == .vertical ? .bottom : .right
-        pos = position.offset(suffixDirection)
-        while let letter = board.placements[pos] {
-            suffix.append(letter)
-            pos = pos.offset(suffixDirection)
-        }
-
-        let start = prefix
-        let end = suffix
-        var validLetters = [UInt8]()
+        var validLetters = [UInt8: Int]()
         for letter in letters {
-            let word = start + [letter] + end
+            guard let letterValue = TileBag.characterTileValues[letter] else { fatalError() }
+            let word = prefix + [letter] + suffix
             if dictionary.isValid(word: word) {
-                validLetters.append(letter)
+                if word.count == 1 {
+                    validLetters[letter] = 0
+                } else {
+                    validLetters[letter] = letterValue + endsValue
+                }
             }
         }
         return validLetters
+    }
+
+    func isLetterCrossValid(_ letter: UInt8, at position: BoardPosition, axis: Axis) -> Bool {
+        switch axis {
+        case .horizontal:
+            if let crossCheck = horizontalCrossChecks[position] {
+                return crossCheck.keys.contains(letter)
+            }
+        case .vertical:
+            if let crossCheck = verticalCrossChecks[position] {
+                return crossCheck.keys.contains(letter)
+            }
+        }
+        return true
+    }
+    
+    // MARK: - Helpers -
+    
+    private func state(forNew letter: UInt8,
+                       at position: BoardPosition,
+                       prefix: [UInt8],
+                       tiles: [UInt8],
+                       placed: [BoardPosition: UInt8],
+                       usedTile: Bool) -> (prefix: [UInt8], tiles: [UInt8], placed: [BoardPosition: UInt8]) {
+        
+        var prefixCopy = prefix
+        prefixCopy.append(letter)
+        
+        var placedCopy = placed
+        var tilesCopy = tiles
+        if usedTile {
+            guard let index = tilesCopy.firstIndex(of: letter) else { fatalError() }
+            tilesCopy.remove(at: index)
+            placedCopy[position] = letter
+        }
+        return (prefixCopy, tilesCopy, placedCopy)
     }
 
 }

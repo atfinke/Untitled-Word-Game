@@ -8,47 +8,73 @@
 
 import Foundation
 
-class _Game {
+let MAX_TILE_COUNT = 7
 
+class _Game {
+    
+    // MARK: - Properties -
+    
+    class _Player {
+        let name: Int
+        var score = 0
+        var tiles = [UInt8]()
+        
+        init(_ name: Int) {
+            self.name = name
+        }
+    }
+
+    // MARK: - Properties -
+    
     let board = Board()
     let gameAI: GameAI
     let tileBag = TileBag()
+    let dictionary = Dictionary()
+    
+    var playerTurnIndex = 0
+    let players = [_Player(1), _Player(2), _Player(3), _Player(4)]
 
     init() {
-        let placements = [
-            BoardPosition(x: 0, y: 5): "E",
-            BoardPosition(x: 0, y: 4): "T",
-            BoardPosition(x: 0, y: 3): "H",
-            BoardPosition(x: 0, y: 2): "E",
-            BoardPosition(x: 0, y: 1): "R",
-
-            BoardPosition(x: 0, y: 0): "E",
-            BoardPosition(x: 0, y: -1): "A",
-            BoardPosition(x: 0, y: -2): "L",
-            BoardPosition(x: 0, y: -3): "L",
-            BoardPosition(x: 0, y: -4): "Y",
-
-            BoardPosition(x: -2, y: 4): "O",
-            BoardPosition(x: -1, y: 4): "U",
-            BoardPosition(x: 1, y: 4): "D",
-            BoardPosition(x: 2, y: 4): "O",
-            BoardPosition(x: 3, y: 4): "I",
-            BoardPosition(x: 4, y: 4): "N",
-            BoardPosition(x: 5, y: 4): "G"
-        ]
-        var aaa = [BoardPosition: UInt8]()
-        for a in placements {
-            aaa[a.key] = UInt8(a.value.unicodeScalars.first!.value)
+        gameAI = GameAI(dictionary: dictionary, board: board)
+        for player in players {
+            player.tiles = tileBag.grab(tiles: MAX_TILE_COUNT)
         }
-        board.placements = aaa
-
-        let gameDictionary = Dictionary()
-        gameAI = GameAI(dictionary: gameDictionary, board: board)
     }
 
     func move() {
-        let tiles: [UInt8] = ["A", "B", "C", "D", "E", "F", "G", "A", "B", "C", "D", "E", "F", "G"].map({ UInt8($0.unicodeScalars.first!.value) })
-        gameAI.moves(for: board, with: tiles)
+        let player = players[playerTurnIndex]
+        playerTurnIndex += 1
+        if playerTurnIndex == players.count {
+            playerTurnIndex = 0
+        }
+        
+        let moves = gameAI.moves(for: board, with: player.tiles)
+        
+        let move = moves.sorted(by: { $0.value > $1.value })[0]
+        player.score += move.value
+        for item in move.placed {
+            board.place(letter: item.value, at: item.key)
+        }
+        
+        print("\nPlayer \(player.name) goes for \(move.value)")
+        print(board)
+        print("Scores: \(players.map({ "\($0.name): \($0.score)" }).joined(separator: ", "))")
+        print("Letters:\n\(players.map({ "\($0.name): \(String(bytes: $0.tiles, encoding: .utf8)!)" }).joined(separator: "\n"))")
+        
+        
+//        for (index, move) in moves.sorted(by: { $0.value > $1.value }).enumerated() {
+//            let copy = Board()
+//            copy.placements = board.placements
+//            for item in move.placed {
+//                copy.place(letter: item.value, at: item.key)
+//            }
+//            print("\nMove #\(index + 1), (\(move.value) Points)")
+//            print("Placed: \(move.placed.values.compactMap({ String(bytes: [$0], encoding: .utf8)}))")
+//            print(copy)
+//        }
+        
+        
+        
     }
 
 }

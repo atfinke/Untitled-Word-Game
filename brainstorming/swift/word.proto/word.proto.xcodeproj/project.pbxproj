@@ -60,6 +60,7 @@
 		14EAFAF2244D6C3B00769F75 /* TileBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileBag.swift; sourceTree = "<group>"; };
 		14EAFAF3244D6C3B00769F75 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		14EAFAFD244D6C9600769F75 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		14EAFB6C244D97E600769F75 /* word.proto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = word.proto.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +106,7 @@
 				14EAFAD2244D6C3A00769F75 /* DictionaryFilter.swift */,
 				14EAFAEF244D6C3B00769F75 /* filtered_sorted_words.txt */,
 				14EAFAD3244D6C3B00769F75 /* Dictionary */,
+				14EAFB6C244D97E600769F75 /* word.proto.entitlements */,
 			);
 			path = word.proto;
 			sourceTree = "<group>";
@@ -332,9 +334,10 @@
 		14AE4E292447938900C35EEC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = word.proto/word.proto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72S993BNAV;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -343,9 +346,10 @@
 		14AE4E2A2447938900C35EEC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = word.proto/word.proto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72S993BNAV;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

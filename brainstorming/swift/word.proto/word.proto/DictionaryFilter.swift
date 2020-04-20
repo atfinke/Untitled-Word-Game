@@ -17,7 +17,7 @@ class DictionaryFilter {
             var isValid = true
             for chr in unique {
                 let count = word.split(separator: chr, omittingEmptySubsequences: false).count - 1
-                if count > TileBag.blankTileCount + TileBag.characterTileCounts[chr]! {
+                if count > TileBag.blankTileCount + TileBag.characterTileCounts[UInt8(chr.unicodeScalars.first!.value)]! {
                     print("invalid: \(word)")
                     isValid = false
                     break

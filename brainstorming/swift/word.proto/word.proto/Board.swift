@@ -8,13 +8,18 @@
 
 import Foundation
 
-class Board {
+class Board: CustomStringConvertible {
 
     // MARK: - Properties -
 
     var placements = [BoardPosition: UInt8]()
 
     // MARK: - Helpers -
+    
+    func place(letter: UInt8, at position: BoardPosition) {
+        assert(isPositionOpen(position))
+        placements[position] = letter
+    }
 
     func isPositionOpen(_ position: BoardPosition) -> Bool {
         return placements[position] == nil
@@ -31,5 +36,35 @@ class Board {
         } else {
             return anchors
         }
+    }
+    
+    // MARK: - CustomStringConvertible -
+    
+    var description: String {
+        var minX = 0
+        var maxX = 0
+        var minY = 0
+        var maxY = 0
+        for pos in placements.keys {
+            minX = min(minX, pos.x)
+            maxX = max(maxX, pos.x)
+            minY = min(minY, pos.y)
+            maxY = max(maxY, pos.y)
+        }
+        var lines = [String]()
+        for y in minY...maxY {
+            var line = ""
+            for x in minX...maxX {
+                if let value = placements[BoardPosition(x: x, y: y)], let letter = String(bytes: [value], encoding: .utf8) {
+                    line += " \(letter) "
+                } else {
+                    line += " - "
+                }
+            }
+            lines.append(line)
+        }
+        
+        return lines.reversed().joined(separator: "\n")
+        
     }
 }
