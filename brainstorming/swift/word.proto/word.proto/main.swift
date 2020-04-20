@@ -17,7 +17,7 @@ if !FileManager.default.fileExists(atPath: dAFile.path) {
 
 let game = _Game()
 
-for _ in 0...20 {
+while true {
     game.move()
 }
 

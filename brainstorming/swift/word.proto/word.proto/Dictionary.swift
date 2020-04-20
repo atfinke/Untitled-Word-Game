@@ -22,29 +22,29 @@ struct Dictionary {
         mergeQueue.maxConcurrentOperationCount = 1
 
         let delimiter = UInt8(UnicodeScalar("\n").value)
-        func process(url: URL, letter: Character) {
-            letterQueue.addOperation {
+        
+        // sorted by file size
+        for letter in "SCPARDMBTIEFHOUGLNWVKJQZYX" {
+            let fileName = "D-\(letter)"
+            guard let url = Bundle.main.url(forResource: fileName, withExtension: "txt") else { fatalError() }
+            
+            letterQueue.addOperation  {
                 Thread.current.name = "Dictionary Init: \(letter)"
 
                 guard let value = letter.unicodeScalars.first?.value,
                     let words = try? Data(contentsOf: url).split(separator: delimiter) else { fatalError() }
+                
                 let letterRoot = Node(isEOW: false)
                 for wordData in words {
                     let values = [UInt8](wordData)
                     let trimmed = values.dropFirst()
                     letterRoot.add(values: trimmed)
                 }
+                
                 mergeQueue.addOperation {
                     root.edges[UInt8(value)] = letterRoot
                 }
             }
-        }
-
-        // sorted by file size
-        for letter in "SCPARDMBTIEFHOUGLNWVKJQZYX" {
-            let fileName = "D-\(letter)"
-            guard let url = Bundle.main.url(forResource: fileName, withExtension: "txt") else { fatalError() }
-            process(url: url, letter: letter)
         }
 
         letterQueue.waitUntilAllOperationsAreFinished()

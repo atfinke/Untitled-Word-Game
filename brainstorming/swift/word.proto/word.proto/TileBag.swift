@@ -47,8 +47,10 @@ class TileBag {
     func grab(tiles: Int = 1) -> [UInt8] {
         var grabbed = [UInt8]()
         for _ in 0..<tiles {
-            let tile = remainingTiles.removeFirst()
-            grabbed.append(tile)
+            if !remainingTiles.isEmpty {
+                let tile = remainingTiles.removeFirst()
+                grabbed.append(tile)
+            }
         }
         return grabbed
     }

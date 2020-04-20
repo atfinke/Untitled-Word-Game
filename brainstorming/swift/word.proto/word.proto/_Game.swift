@@ -23,7 +23,7 @@ class _Game {
             self.name = name
         }
     }
-
+    
     // MARK: - Properties -
     
     let board = Board()
@@ -33,14 +33,14 @@ class _Game {
     
     var playerTurnIndex = 0
     let players = [_Player(1), _Player(2), _Player(3), _Player(4)]
-
+    
     init() {
         gameAI = GameAI(dictionary: dictionary, board: board)
         for player in players {
             player.tiles = tileBag.grab(tiles: MAX_TILE_COUNT)
         }
     }
-
+    
     func move() {
         let player = players[playerTurnIndex]
         playerTurnIndex += 1
@@ -50,31 +50,37 @@ class _Game {
         
         let moves = gameAI.moves(for: board, with: player.tiles)
         
-        let move = moves.sorted(by: { $0.value > $1.value })[0]
-        player.score += move.value
-        for item in move.placed {
-            board.place(letter: item.value, at: item.key)
+        if let move = moves.sorted(by: { $0.value > $1.value }).first {
+            player.score += move.value
+            for item in move.placed {
+                board.place(letter: item.value, at: item.key)
+                guard let index = player.tiles.firstIndex(of: item.value) else { fatalError() }
+                player.tiles.remove(at: index)
+            }
+            player.tiles.append(contentsOf: tileBag.grab(tiles: MAX_TILE_COUNT - player.tiles.count))
+            print("\nPlayer \(player.name) goes, +\(move.value) points")
+        } else {
+            print("\nPlayer \(player.name) can't go")
         }
         
-        print("\nPlayer \(player.name) goes for \(move.value)")
         print(board)
         print("Scores: \(players.map({ "\($0.name): \($0.score)" }).joined(separator: ", "))")
         print("Letters:\n\(players.map({ "\($0.name): \(String(bytes: $0.tiles, encoding: .utf8)!)" }).joined(separator: "\n"))")
         
-        
-//        for (index, move) in moves.sorted(by: { $0.value > $1.value }).enumerated() {
-//            let copy = Board()
-//            copy.placements = board.placements
-//            for item in move.placed {
-//                copy.place(letter: item.value, at: item.key)
-//            }
-//            print("\nMove #\(index + 1), (\(move.value) Points)")
-//            print("Placed: \(move.placed.values.compactMap({ String(bytes: [$0], encoding: .utf8)}))")
-//            print(copy)
-//        }
-        
-        
-        
+        if player.tiles.count == 0 {
+            print("game over")
+            exit(0)
+        }
+        //        for (index, move) in moves.sorted(by: { $0.value > $1.value }).enumerated() {
+        //            let copy = Board()
+        //            copy.placements = board.placements
+        //            for item in move.placed {
+        //                copy.place(letter: item.value, at: item.key)
+        //            }
+        //            print("\nMove #\(index + 1), (\(move.value) Points)")
+        //            print("Placed: \(move.placed.values.compactMap({ String(bytes: [$0], encoding: .utf8)}))")
+        //            print(copy)
+        //        }
     }
-
+    
 }

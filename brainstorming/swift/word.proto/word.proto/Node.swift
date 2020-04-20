@@ -11,12 +11,18 @@ import Foundation
 class Node {
     private static let indent = "    "
 
+    // MARK: - Properties -
+    
     let isEOW: Bool
     var edges = [UInt8: Node]()
 
+    // MARK: - Initalization -
+    
     init(isEOW: Bool) {
         self.isEOW = isEOW
     }
+    
+    // MARK: - Helpers -
 
     func add(values: ArraySlice<UInt8>) {
         guard let value = values.first else { return }
@@ -24,8 +30,10 @@ class Node {
         if let node = edges[value] {
             node.add(values: remaining)
         } else {
-            let node = Node(isEOW: values.count == 1)
-            node.add(values: remaining)
+            let node = Node(isEOW: remaining.isEmpty)
+            if !remaining.isEmpty {
+                node.add(values: remaining)
+            }
             edges[value] = node
         }
     }
