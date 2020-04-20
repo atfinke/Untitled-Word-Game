@@ -9,7 +9,7 @@
 import Foundation
 
 class DictionaryFilter {
-    
+
     static func filterInvalidWords(words: [Substring]) -> [Substring] {
         var valid = [Substring]()
         for word in words {
@@ -29,10 +29,10 @@ class DictionaryFilter {
         }
         return valid
     }
-    
+
     static func filterSortAndSave(words: [Substring]) {
         let filtered = DictionaryFilter.filterInvalidWords(words: words)
-        
+
         var lastLetter: Character?
         var sortedWords = [Character: [Substring]]()
         for word in filtered {
@@ -50,16 +50,23 @@ class DictionaryFilter {
             arr.append(word)
             sortedWords[letter] = arr
         }
-        
+
         let sortedByCount = sortedWords.sorted(by: { lhs, rhs -> Bool in
             return lhs.value.count > rhs.value.count
         })
-        let result = sortedByCount
-            .map { $0.value }
-            .reduce([], +)
-            .joined(separator: "\n")
-        let resultPath = NSTemporaryDirectory() + "filtered_sorted_words.txt"
-        try! result.write(toFile: resultPath, atomically: true, encoding: .utf8)
-        print(resultPath)
+
+        for (key, value) in sortedByCount {
+            let resultPath = NSTemporaryDirectory() + "D-\(key).txt"
+            try! value.joined(separator: "\n").write(toFile: resultPath, atomically: true, encoding: .utf8)
+            print(resultPath)
+        }
+
+//        let result = sortedByCount
+//            .map { $0.value }
+//            .reduce([], +)
+//            .joined(separator: "\n")
+//        let resultPath = NSTemporaryDirectory() + "filtered_sorted_words.txt"
+//        try! result.write(toFile: resultPath, atomically: true, encoding: .utf8)
+//        print(resultPath)
     }
 }

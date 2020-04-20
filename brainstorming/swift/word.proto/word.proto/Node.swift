@@ -9,18 +9,18 @@
 import Foundation
 
 class Node {
-    static let indent = "    "
+    private static let indent = "    "
 
     let isEOW: Bool
-    var edges = [String: Node]()
+    var edges = [UInt8: Node]()
 
     init(isEOW: Bool) {
         self.isEOW = isEOW
     }
 
-    func add(values: [String]) {
+    func add(values: ArraySlice<UInt8>) {
         guard let value = values.first else { return }
-        let remaining = Array(values.dropFirst())
+        let remaining = values.dropFirst()
         if let node = edges[value] {
             node.add(values: remaining)
         } else {
@@ -32,12 +32,10 @@ class Node {
 
     func description(indentLevel: Int) -> String {
         let indent = Array(repeating: Node.indent, count: indentLevel).joined()
-        let edgesDescription = edges.sorted(by: { lhs, rhs -> Bool in
-            return lhs.key < rhs.key
-        }).map({ (key: String, value: Node) -> String in
+        let edgesDescription = edges.map({ (key: UInt8, value: Node) -> String in
             let isEOW = value.isEOW ? "T" : "F"
             let node = value.description(indentLevel: indentLevel + 1)
-            return indent + "-\(key)): \(isEOW)\n\(node)"
+            return indent + "-\(String(bytes: [key], encoding: .utf8)!): \(isEOW)\n\(node)"
         }).joined()
         return edgesDescription
     }

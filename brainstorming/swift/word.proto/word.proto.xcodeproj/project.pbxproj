@@ -7,30 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1463F55D244A35FB00506B27 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1463F55C244A35FB00506B27 /* Dictionary.swift */; };
-		1463F55F244A3BAC00506B27 /* DictionaryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1463F55E244A3BAC00506B27 /* DictionaryFilter.swift */; };
-		14923C01244A144300F23211 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14923C00244A144300F23211 /* Board.swift */; };
-		14923C03244A145000F23211 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14923C02244A145000F23211 /* BoardPosition.swift */; };
-		14A1C1FB244A7BCC009B7F85 /* GameAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1C1F0244A6A8A009B7F85 /* GameAI.swift */; };
-		14A1C1FD244A7FCF009B7F85 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1C1FC244A7FCF009B7F85 /* Axis.swift */; };
-		14A1C1FF244A83D5009B7F85 /* TileBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A1C1FE244A83D5009B7F85 /* TileBag.swift */; };
 		14AE4E252447938900C35EEC /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE4E242447938900C35EEC /* main.swift */; };
-		14AE4E2D2447B1FB00C35EEC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AE4E2C2447B1FB00C35EEC /* Node.swift */; };
+		14EAFAF4244D6C3B00769F75 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFACF244D6C3A00769F75 /* Axis.swift */; };
+		14EAFAF5244D6C3B00769F75 /* _Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAD0244D6C3A00769F75 /* _Game.swift */; };
+		14EAFAF6244D6C3B00769F75 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAD1244D6C3A00769F75 /* Node.swift */; };
+		14EAFAF7244D6C3B00769F75 /* DictionaryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAD2244D6C3A00769F75 /* DictionaryFilter.swift */; };
+		14EAFAF8244D6C3B00769F75 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAEE244D6C3B00769F75 /* BoardPosition.swift */; };
+		14EAFAF9244D6C3B00769F75 /* GameAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAF0244D6C3B00769F75 /* GameAI.swift */; };
+		14EAFAFA244D6C3B00769F75 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAF1244D6C3B00769F75 /* Dictionary.swift */; };
+		14EAFAFB244D6C3B00769F75 /* TileBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAF2244D6C3B00769F75 /* TileBag.swift */; };
+		14EAFAFC244D6C3B00769F75 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAF3244D6C3B00769F75 /* Board.swift */; };
+		14EAFAFE244D6C9600769F75 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EAFAFD244D6C9600769F75 /* Direction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1463F55C244A35FB00506B27 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
-		1463F55E244A3BAC00506B27 /* DictionaryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryFilter.swift; sourceTree = "<group>"; };
-		1463F560244A46D600506B27 /* filtered_sorted_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filtered_sorted_words.txt; sourceTree = "<group>"; };
-		14923C00244A144300F23211 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
-		14923C02244A145000F23211 /* BoardPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
-		14A1C1F0244A6A8A009B7F85 /* GameAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAI.swift; sourceTree = "<group>"; };
-		14A1C1FC244A7FCF009B7F85 /* Axis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
-		14A1C1FE244A83D5009B7F85 /* TileBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileBag.swift; sourceTree = "<group>"; };
 		14AE4E212447938900C35EEC /* word.proto */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = word.proto; sourceTree = BUILT_PRODUCTS_DIR; };
 		14AE4E242447938900C35EEC /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		14AE4E2B2447AE1300C35EEC /* scrabble_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = scrabble_words.txt; path = ../../../python/scrabble_words.txt; sourceTree = "<group>"; };
-		14AE4E2C2447B1FB00C35EEC /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		14EAFACF244D6C3A00769F75 /* Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
+		14EAFAD0244D6C3A00769F75 /* _Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _Game.swift; sourceTree = "<group>"; };
+		14EAFAD1244D6C3A00769F75 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		14EAFAD2244D6C3A00769F75 /* DictionaryFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryFilter.swift; sourceTree = "<group>"; };
+		14EAFAD4244D6C3B00769F75 /* D-D.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-D.txt"; sourceTree = "<group>"; };
+		14EAFAD5244D6C3B00769F75 /* D-S.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-S.txt"; sourceTree = "<group>"; };
+		14EAFAD6244D6C3B00769F75 /* D-R.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-R.txt"; sourceTree = "<group>"; };
+		14EAFAD7244D6C3B00769F75 /* D-E.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-E.txt"; sourceTree = "<group>"; };
+		14EAFAD8244D6C3B00769F75 /* D-G.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-G.txt"; sourceTree = "<group>"; };
+		14EAFAD9244D6C3B00769F75 /* D-P.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-P.txt"; sourceTree = "<group>"; };
+		14EAFADA244D6C3B00769F75 /* D-Q.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Q.txt"; sourceTree = "<group>"; };
+		14EAFADB244D6C3B00769F75 /* D-F.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-F.txt"; sourceTree = "<group>"; };
+		14EAFADC244D6C3B00769F75 /* D-U.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-U.txt"; sourceTree = "<group>"; };
+		14EAFADD244D6C3B00769F75 /* D-B.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-B.txt"; sourceTree = "<group>"; };
+		14EAFADE244D6C3B00769F75 /* D-C.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-C.txt"; sourceTree = "<group>"; };
+		14EAFADF244D6C3B00769F75 /* D-T.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-T.txt"; sourceTree = "<group>"; };
+		14EAFAE0244D6C3B00769F75 /* D-V.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-V.txt"; sourceTree = "<group>"; };
+		14EAFAE1244D6C3B00769F75 /* D-A.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-A.txt"; sourceTree = "<group>"; };
+		14EAFAE2244D6C3B00769F75 /* D-W.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-W.txt"; sourceTree = "<group>"; };
+		14EAFAE3244D6C3B00769F75 /* D-Z.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Z.txt"; sourceTree = "<group>"; };
+		14EAFAE4244D6C3B00769F75 /* D-M.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-M.txt"; sourceTree = "<group>"; };
+		14EAFAE5244D6C3B00769F75 /* D-L.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-L.txt"; sourceTree = "<group>"; };
+		14EAFAE6244D6C3B00769F75 /* D-Y.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-Y.txt"; sourceTree = "<group>"; };
+		14EAFAE7244D6C3B00769F75 /* D-N.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-N.txt"; sourceTree = "<group>"; };
+		14EAFAE8244D6C3B00769F75 /* D-O.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-O.txt"; sourceTree = "<group>"; };
+		14EAFAE9244D6C3B00769F75 /* D-X.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-X.txt"; sourceTree = "<group>"; };
+		14EAFAEA244D6C3B00769F75 /* D-K.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-K.txt"; sourceTree = "<group>"; };
+		14EAFAEB244D6C3B00769F75 /* D-J.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-J.txt"; sourceTree = "<group>"; };
+		14EAFAEC244D6C3B00769F75 /* D-H.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-H.txt"; sourceTree = "<group>"; };
+		14EAFAED244D6C3B00769F75 /* D-I.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "D-I.txt"; sourceTree = "<group>"; };
+		14EAFAEE244D6C3B00769F75 /* BoardPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
+		14EAFAEF244D6C3B00769F75 /* filtered_sorted_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filtered_sorted_words.txt; sourceTree = "<group>"; };
+		14EAFAF0244D6C3B00769F75 /* GameAI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAI.swift; sourceTree = "<group>"; };
+		14EAFAF1244D6C3B00769F75 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		14EAFAF2244D6C3B00769F75 /* TileBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileBag.swift; sourceTree = "<group>"; };
+		14EAFAF3244D6C3B00769F75 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		14EAFAFD244D6C9600769F75 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,18 +93,53 @@
 			isa = PBXGroup;
 			children = (
 				14AE4E242447938900C35EEC /* main.swift */,
-				14A1C1FC244A7FCF009B7F85 /* Axis.swift */,
-				1463F55C244A35FB00506B27 /* Dictionary.swift */,
-				14A1C1F0244A6A8A009B7F85 /* GameAI.swift */,
-				1463F55E244A3BAC00506B27 /* DictionaryFilter.swift */,
-				14A1C1FE244A83D5009B7F85 /* TileBag.swift */,
-				14923C00244A144300F23211 /* Board.swift */,
-				14923C02244A145000F23211 /* BoardPosition.swift */,
-				14AE4E2C2447B1FB00C35EEC /* Node.swift */,
-				14AE4E2B2447AE1300C35EEC /* scrabble_words.txt */,
-				1463F560244A46D600506B27 /* filtered_sorted_words.txt */,
+				14EAFAD0244D6C3A00769F75 /* _Game.swift */,
+				14EAFAF0244D6C3B00769F75 /* GameAI.swift */,
+				14EAFACF244D6C3A00769F75 /* Axis.swift */,
+				14EAFAFD244D6C9600769F75 /* Direction.swift */,
+				14EAFAF3244D6C3B00769F75 /* Board.swift */,
+				14EAFAEE244D6C3B00769F75 /* BoardPosition.swift */,
+				14EAFAF2244D6C3B00769F75 /* TileBag.swift */,
+				14EAFAD1244D6C3A00769F75 /* Node.swift */,
+				14EAFAF1244D6C3B00769F75 /* Dictionary.swift */,
+				14EAFAD2244D6C3A00769F75 /* DictionaryFilter.swift */,
+				14EAFAEF244D6C3B00769F75 /* filtered_sorted_words.txt */,
+				14EAFAD3244D6C3B00769F75 /* Dictionary */,
 			);
 			path = word.proto;
+			sourceTree = "<group>";
+		};
+		14EAFAD3244D6C3B00769F75 /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+				14EAFAD4244D6C3B00769F75 /* D-D.txt */,
+				14EAFAD5244D6C3B00769F75 /* D-S.txt */,
+				14EAFAD6244D6C3B00769F75 /* D-R.txt */,
+				14EAFAD7244D6C3B00769F75 /* D-E.txt */,
+				14EAFAD8244D6C3B00769F75 /* D-G.txt */,
+				14EAFAD9244D6C3B00769F75 /* D-P.txt */,
+				14EAFADA244D6C3B00769F75 /* D-Q.txt */,
+				14EAFADB244D6C3B00769F75 /* D-F.txt */,
+				14EAFADC244D6C3B00769F75 /* D-U.txt */,
+				14EAFADD244D6C3B00769F75 /* D-B.txt */,
+				14EAFADE244D6C3B00769F75 /* D-C.txt */,
+				14EAFADF244D6C3B00769F75 /* D-T.txt */,
+				14EAFAE0244D6C3B00769F75 /* D-V.txt */,
+				14EAFAE1244D6C3B00769F75 /* D-A.txt */,
+				14EAFAE2244D6C3B00769F75 /* D-W.txt */,
+				14EAFAE3244D6C3B00769F75 /* D-Z.txt */,
+				14EAFAE4244D6C3B00769F75 /* D-M.txt */,
+				14EAFAE5244D6C3B00769F75 /* D-L.txt */,
+				14EAFAE6244D6C3B00769F75 /* D-Y.txt */,
+				14EAFAE7244D6C3B00769F75 /* D-N.txt */,
+				14EAFAE8244D6C3B00769F75 /* D-O.txt */,
+				14EAFAE9244D6C3B00769F75 /* D-X.txt */,
+				14EAFAEA244D6C3B00769F75 /* D-K.txt */,
+				14EAFAEB244D6C3B00769F75 /* D-J.txt */,
+				14EAFAEC244D6C3B00769F75 /* D-H.txt */,
+				14EAFAED244D6C3B00769F75 /* D-I.txt */,
+			);
+			path = Dictionary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,15 +199,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14A1C1FF244A83D5009B7F85 /* TileBag.swift in Sources */,
-				14923C03244A145000F23211 /* BoardPosition.swift in Sources */,
-				1463F55D244A35FB00506B27 /* Dictionary.swift in Sources */,
-				14A1C1FD244A7FCF009B7F85 /* Axis.swift in Sources */,
+				14EAFAFB244D6C3B00769F75 /* TileBag.swift in Sources */,
+				14EAFAF4244D6C3B00769F75 /* Axis.swift in Sources */,
+				14EAFAFC244D6C3B00769F75 /* Board.swift in Sources */,
+				14EAFAFA244D6C3B00769F75 /* Dictionary.swift in Sources */,
+				14EAFAF5244D6C3B00769F75 /* _Game.swift in Sources */,
+				14EAFAF9244D6C3B00769F75 /* GameAI.swift in Sources */,
+				14EAFAFE244D6C9600769F75 /* Direction.swift in Sources */,
+				14EAFAF7244D6C3B00769F75 /* DictionaryFilter.swift in Sources */,
+				14EAFAF8244D6C3B00769F75 /* BoardPosition.swift in Sources */,
 				14AE4E252447938900C35EEC /* main.swift in Sources */,
-				14A1C1FB244A7BCC009B7F85 /* GameAI.swift in Sources */,
-				14923C01244A144300F23211 /* Board.swift in Sources */,
-				14AE4E2D2447B1FB00C35EEC /* Node.swift in Sources */,
-				1463F55F244A3BAC00506B27 /* DictionaryFilter.swift in Sources */,
+				14EAFAF6244D6C3B00769F75 /* Node.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,9 @@
 import Foundation
 
 class TileBag {
-    
+
     // MARK: - Properties -
-    
+
     static let blankTileCount = 0
     static let characterTileCounts: [Character: Int] = [
         "A": 9,
@@ -39,27 +39,27 @@ class TileBag {
         "W": 2,
         "X": 1,
         "Y": 2,
-        "Z": 1,
+        "Z": 1
     ]
-    
-    var remainingTiles = [Character]()
-    
+
+    private var remainingTiles = [UInt8]()
+
     // MARK: - Initalization -
-    
+
     init() {
-        var tiles = [Character]()
+        var tiles = [UInt8]()
         for (key, number) in TileBag.characterTileCounts {
             for _ in 0..<number {
-                tiles.append(key)
+                tiles.append(UInt8(key.unicodeScalars.first!.value))
             }
         }
         remainingTiles = tiles.shuffled()
     }
-    
+
     // MARK: - Helpers -
-    
-    func grab(tiles: Int = 1) -> [Character] {
-        var grabbed = [Character]()
+
+    func grab(tiles: Int = 1) -> [UInt8] {
+        var grabbed = [UInt8]()
         for _ in 0..<tiles {
             let tile = remainingTiles.removeFirst()
             grabbed.append(tile)

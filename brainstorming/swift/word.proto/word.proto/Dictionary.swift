@@ -9,57 +9,56 @@
 import Foundation
 
 struct Dictionary {
-    
+
     let root: Node
-    
+
     // MARK: - Initalization -
-    
-    init(words: [Substring]) {
+
+    init() {
         let root = Node(isEOW: false)
-        
-        let queue = OperationQueue()
+
+        let letterQueue = OperationQueue()
         let mergeQueue = OperationQueue()
         mergeQueue.maxConcurrentOperationCount = 1
-        
-        func process(words: [Substring], letter: Character) {
-            queue.addOperation {
+
+        let delimiter = UInt8(UnicodeScalar("\n").value)
+        func process(url: URL, letter: Character) {
+            letterQueue.addOperation {
+                Thread.current.name = "Dictionary Init: \(letter)"
+
+                guard let value = letter.unicodeScalars.first?.value,
+                    let words = try? Data(contentsOf: url).split(separator: delimiter) else { fatalError() }
                 let letterRoot = Node(isEOW: false)
-                for word in words {
-                    let trimmed = word.compactMap({ "\($0)" }).dropFirst()
-                    letterRoot.add(values: Array(trimmed))
+                for wordData in words {
+                    let values = [UInt8](wordData)
+                    let trimmed = values.dropFirst()
+                    letterRoot.add(values: trimmed)
                 }
                 mergeQueue.addOperation {
-                    root.edges[String(letter)] = letterRoot
+                    root.edges[UInt8(value)] = letterRoot
                 }
             }
         }
-        
-        var currentLetter: Character = words[0].first!
-        var letterWordsToProcess = [Substring]()
-        for word in words {
-            guard let letter = word.first else { fatalError() }
-            
-            if currentLetter != letter {
-                process(words: letterWordsToProcess, letter: currentLetter)
-                letterWordsToProcess = []
-                currentLetter = letter
-            }
-            letterWordsToProcess.append(word)
+
+        // sorted by file size
+        for letter in "SCPARDMBTIEFHOUGLNWVKJQZYX" {
+            let fileName = "D-\(letter)"
+            guard let url = Bundle.main.url(forResource: fileName, withExtension: "txt") else { fatalError() }
+            process(url: url, letter: letter)
         }
-        process(words: letterWordsToProcess, letter: currentLetter) // Z
-        
-        queue.waitUntilAllOperationsAreFinished()
+
+        letterQueue.waitUntilAllOperationsAreFinished()
         mergeQueue.waitUntilAllOperationsAreFinished()
-        
+
         self.root = root
     }
-    
+
     // MARK: - Helpers -
-    
-    func isValid(word: String) -> Bool {
+
+    func isValid(word: [UInt8]) -> Bool {
         var node = root
         for letter in word {
-            if let nextNode = node.edges["\(letter)"] {
+            if let nextNode = node.edges[letter] {
                 node = nextNode
             } else {
                 return false
@@ -67,5 +66,5 @@ struct Dictionary {
         }
         return node.isEOW || word.count == 1
     }
-    
+
 }

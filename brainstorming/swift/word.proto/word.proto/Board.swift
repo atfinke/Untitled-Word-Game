@@ -9,13 +9,17 @@
 import Foundation
 
 class Board {
-    
-    var placements = [BoardPosition: String]()
-    
+
+    // MARK: - Properties -
+
+    var placements = [BoardPosition: UInt8]()
+
+    // MARK: - Helpers -
+
     func isPositionOpen(_ position: BoardPosition) -> Bool {
         return placements[position] == nil
     }
-    
+
     func anchors() -> Set<BoardPosition> {
         let filledPositions = placements.keys
         let anchors = Set(filledPositions

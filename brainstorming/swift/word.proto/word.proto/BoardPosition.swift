@@ -6,15 +6,14 @@
 //  Copyright © 2020 Andrew Finke. All rights reserved.
 //
 
-import Foundation
-
-enum Direction {
-    case left, right, top, bottom
-}
-
 struct BoardPosition: Hashable, CustomStringConvertible {
-    let x,y : Int
-    
+
+    // MARK: - Properties -
+
+    let x, y: Int
+
+    // MARK: - Helpers -
+
     func offset(_ direction: Direction, by dx: Int = 1) -> BoardPosition {
         switch direction {
         case .left:
@@ -27,7 +26,7 @@ struct BoardPosition: Hashable, CustomStringConvertible {
             return BoardPosition(x: x, y: y - dx)
         }
     }
-    
+
     func neighbors() -> [BoardPosition] {
         return [
             offset(.left),
@@ -36,7 +35,9 @@ struct BoardPosition: Hashable, CustomStringConvertible {
             offset(.bottom)
         ]
     }
-    
+
+    // MARK: - CustomStringConvertible -
+
     var description: String {
         return "(\(x), \(y))"
     }
