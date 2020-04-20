@@ -12,9 +12,9 @@ let MAX_TILE_COUNT = 7
 
 class _Game {
     
-    // MARK: - Properties -
+    // MARK: - Types -
     
-    class _Player {
+    private class _Player {
         let name: Int
         var score = 0
         var tiles = [UInt8]()
@@ -26,13 +26,15 @@ class _Game {
     
     // MARK: - Properties -
     
-    let board = Board()
-    let gameAI: GameAI
-    let tileBag = TileBag()
-    let dictionary = Dictionary()
+    private let board = Board()
+    private let gameAI: GameAI
+    private let tileBag = TileBag()
+    private let dictionary = Dictionary()
     
-    var playerTurnIndex = 0
-    let players = [_Player(1), _Player(2), _Player(3), _Player(4)]
+    private var playerTurnIndex = 0
+    private let players = [_Player(1), _Player(2), _Player(3), _Player(4)]
+    
+    // MARK: - Initalization -
     
     init() {
         gameAI = GameAI(dictionary: dictionary, board: board)
@@ -40,6 +42,8 @@ class _Game {
             player.tiles = tileBag.grab(tiles: MAX_TILE_COUNT)
         }
     }
+    
+    // MARK: - Helpers -
     
     func move() {
         let player = players[playerTurnIndex]

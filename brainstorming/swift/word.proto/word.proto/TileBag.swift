@@ -28,7 +28,7 @@ class TileBag {
         return converted
     }()
     
-    var remainingTiles = [UInt8]()
+    private var remainingTiles = [UInt8]()
 
     // MARK: - Initalization -
 

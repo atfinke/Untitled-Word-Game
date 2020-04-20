@@ -9,10 +9,10 @@
 import Foundation
 
 class Node {
-    private static let indent = "    "
-
+   
     // MARK: - Properties -
     
+    private static let indent = "    "
     let isEOW: Bool
     var edges = [UInt8: Node]()
 
@@ -24,6 +24,7 @@ class Node {
     
     // MARK: - Helpers -
 
+    /// Called 100,000+ times, needs to be as fast as possible
     func add(values: ArraySlice<UInt8>) {
         guard let value = values.first else { return }
         let remaining = values.dropFirst()

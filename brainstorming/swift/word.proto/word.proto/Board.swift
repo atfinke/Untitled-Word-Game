@@ -6,13 +6,11 @@
 //  Copyright © 2020 Andrew Finke. All rights reserved.
 //
 
-import Foundation
-
 class Board: CustomStringConvertible {
 
     // MARK: - Properties -
 
-    var placements = [BoardPosition: UInt8]()
+    private(set) var placements = [BoardPosition: UInt8]()
 
     // MARK: - Helpers -
     

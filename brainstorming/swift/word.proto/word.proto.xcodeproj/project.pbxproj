@@ -336,7 +336,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = word.proto/word.proto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72S993BNAV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -348,7 +348,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = word.proto/word.proto.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72S993BNAV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

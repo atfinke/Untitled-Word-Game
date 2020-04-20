@@ -9,15 +9,20 @@
 import Foundation
 
 struct Dictionary {
+    
+    // MARK: - Properties -
 
     let root: Node
 
     // MARK: - Initalization -
 
     init() {
+        let date = Date()
+        
         let root = Node(isEOW: false)
 
         let letterQueue = OperationQueue()
+        letterQueue.qualityOfService = .utility
         let mergeQueue = OperationQueue()
         mergeQueue.maxConcurrentOperationCount = 1
 
@@ -49,7 +54,7 @@ struct Dictionary {
 
         letterQueue.waitUntilAllOperationsAreFinished()
         mergeQueue.waitUntilAllOperationsAreFinished()
-
+        print(-date.timeIntervalSinceNow)
         self.root = root
     }
 

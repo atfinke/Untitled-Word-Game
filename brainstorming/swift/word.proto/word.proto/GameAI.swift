@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Based on https://dl.acm.org/doi/10.1145/42411.42420
 class GameAI {
     
     // MARK: - Types -
@@ -18,59 +19,57 @@ class GameAI {
     }
     
     // MARK: - Properties -
-
+    
     private let dictionary: Dictionary
-    private let queue = OperationQueue()
-
-    private let movesQueue = DispatchQueue(label: "com.andrewfinke.moves")
-
+    private let movesQueue = OperationQueue()
+    private let mergeQueue = DispatchQueue(label: "com.andrewfinke.words.ai.merge", qos: .userInitiated)
+    
     // MARK: - State -
-
+    
     private var board: Board
-    private var tiles: [UInt8]
-
+    
     private var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
     private var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
-
+    
     private var moves = [Move]()
     
     // MARK: - Initalization -
-
+    
     init(dictionary: Dictionary, board: Board) {
         self.dictionary = dictionary
         self.board = board
-        self.tiles = []
+        
+        movesQueue.qualityOfService = .userInitiated
     }
     
     // MARK: - Check Moves -
-
+    
     func moves(for board: Board, with tiles: [UInt8]) -> [Move] {
         self.board = board
-        self.tiles = tiles
         self.moves = []
-
-        updateCrossChecks()
+        
+        updateCrossChecks(tiles: tiles)
         for anchor in board.anchors() {
             let horizontalOperation = BlockOperation {
                 self.checkMoves(at: anchor, with: tiles, axis: .horizontal)
             }
-            queue.addOperation(horizontalOperation)
+            movesQueue.addOperation(horizontalOperation)
             let verticalOperation = BlockOperation {
                 self.checkMoves(at: anchor, with: tiles, axis: .vertical)
             }
-            queue.addOperation(verticalOperation)
+            movesQueue.addOperation(verticalOperation)
         }
-        queue.waitUntilAllOperationsAreFinished()
-        return movesQueue.sync {
+        movesQueue.waitUntilAllOperationsAreFinished()
+        return mergeQueue.sync {
             return self.moves
         }
     }
-
+    
     private func checkMoves(at anchor: BoardPosition, with tiles: [UInt8], axis: Axis) {
         Thread.current.name = "GameAI checkMoves: \(anchor), \(axis)"
         let nextDirection: Direction = axis == .horizontal ? .left : .top
         var position = anchor.offset(nextDirection)
-
+        
         if let _ = board.placements[position] {
             var prefix = [UInt8]()
             while let letter = board.placements[position] {
@@ -85,44 +84,44 @@ class GameAI {
                 node = newNode
             }
             buildSuffix(anchor: anchor,
-                       position: anchor,
-                       prefix: prefix,
-                       placed: [:],
-                       node: node,
-                       tiles: tiles,
-                       axis: axis)
+                        position: anchor,
+                        prefix: prefix,
+                        placed: [:],
+                        node: node,
+                        tiles: tiles,
+                        axis: axis)
         } else {
             buildSuffix(anchor: anchor,
-                       position: anchor,
-                       prefix: [],
-                       placed: [:],
-                       node: dictionary.root,
-                       tiles: tiles,
-                       axis: axis)
-
+                        position: anchor,
+                        prefix: [],
+                        placed: [:],
+                        node: dictionary.root,
+                        tiles: tiles,
+                        axis: axis)
+            
             var length = 1
             while board.isPositionOpen(position) && !board.anchors().contains(position) && length <= tiles.count {
                 buildPrefix(anchor: anchor,
-                          position: position,
-                          prefix: [],
-                          placed: [:],
-                          node: dictionary.root,
-                          tiles: tiles,
-                          axis: axis)
+                            position: position,
+                            prefix: [],
+                            placed: [:],
+                            node: dictionary.root,
+                            tiles: tiles,
+                            axis: axis)
                 position = position.offset(nextDirection)
                 length += 1
             }
         }
     }
-
+    
     // MARK: - Main Logic -
-
+    
     private func found(move: Move) {
         moves.append(move)
     }
     
-    private func score(placed: [BoardPosition: UInt8], finalLetterPosition: BoardPosition, axis: Axis) -> Int {
-        // Calc value of word along op axis
+    private func score(for placed: [BoardPosition: UInt8], finalLetterPosition: BoardPosition, axis: Axis) -> Int {
+        // Calc value of new words along op axis
         let opAxisPointChecks = axis == .horizontal ? verticalCrossChecks : horizontalCrossChecks
         var crossPoints = 0
         for (position, letter) in placed {
@@ -174,85 +173,85 @@ class GameAI {
         
         return crossPoints + coreValue + preValue
     }
-
+    
     private func buildSuffix(anchor: BoardPosition,
-                            position: BoardPosition,
-                            prefix: [UInt8],
-                            placed: [BoardPosition: UInt8],
-                            node: Node,
-                            tiles: [UInt8],
-                            axis: Axis) {
+                             position: BoardPosition,
+                             prefix: [UInt8],
+                             placed: [BoardPosition: UInt8],
+                             node: Node,
+                             tiles: [UInt8],
+                             axis: Axis) {
         let nextDirection: Direction = axis == .horizontal ? .right : .bottom
-
+        
         if let existingLetter = board.placements[position] {
             guard let existingLetterNode = node.edges[existingLetter] else { return }
             let (newPrefix, newTiles, newPlaced) = state(forNew: existingLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: false)
             
             buildSuffix(anchor: anchor,
-                       position: position.offset(nextDirection),
-                       prefix: newPrefix,
-                       placed: newPlaced,
-                       node: existingLetterNode,
-                       tiles: newTiles,
-                       axis: axis)
+                        position: position.offset(nextDirection),
+                        prefix: newPrefix,
+                        placed: newPlaced,
+                        node: existingLetterNode,
+                        tiles: newTiles,
+                        axis: axis)
         } else {
             if anchor != position && node.isEOW {
                 let prevDirection: Direction = axis == .horizontal ? .left : .top
-                let value = score(placed: placed, finalLetterPosition: position.offset(prevDirection), axis: axis)
+                let value = score(for: placed, finalLetterPosition: position.offset(prevDirection), axis: axis)
                 let move = Move(placed: placed, value: value)
-                movesQueue.async {
+                mergeQueue.async {
                     self.found(move: move)
                 }
             }
             for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterCrossValid(edgeLetter, at: position, axis: axis.other) {
                 let (newPrefix, newTiles, newPlaced) = state(forNew: edgeLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: true)
                 buildSuffix(anchor: anchor,
-                           position: position.offset(nextDirection),
-                           prefix: newPrefix,
-                           placed: newPlaced,
-                           node: edgeNode,
-                           tiles: newTiles,
-                           axis: axis)
+                            position: position.offset(nextDirection),
+                            prefix: newPrefix,
+                            placed: newPlaced,
+                            node: edgeNode,
+                            tiles: newTiles,
+                            axis: axis)
             }
         }
     }
-
+    
     private func buildPrefix(anchor: BoardPosition,
-                           position: BoardPosition,
-                           prefix: [UInt8],
-                           placed: [BoardPosition: UInt8],
-                           node: Node,
-                           tiles: [UInt8],
-                           axis: Axis) {
+                             position: BoardPosition,
+                             prefix: [UInt8],
+                             placed: [BoardPosition: UInt8],
+                             node: Node,
+                             tiles: [UInt8],
+                             axis: Axis) {
         let nextDirection: Direction = axis == .horizontal ? .right : .bottom
-
+        
         guard anchor != position else {
             buildSuffix(anchor: anchor,
-                       position: position,
-                       prefix: prefix,
-                       placed: placed,
-                       node: node,
-                       tiles: tiles,
-                       axis: axis)
+                        position: position,
+                        prefix: prefix,
+                        placed: placed,
+                        node: node,
+                        tiles: tiles,
+                        axis: axis)
             return
         }
-
+        
         for (edgeLetter, edgeNode) in node.edges where tiles.contains(edgeLetter) && isLetterCrossValid(edgeLetter, at: position, axis: axis.other) {
             let (newPrefix, newTiles, newPlaced) = state(forNew: edgeLetter, at: position, prefix: prefix, tiles: tiles, placed: placed, usedTile: true)
             buildPrefix(anchor: anchor,
-                      position: position.offset(nextDirection),
-                      prefix: newPrefix,
-                      placed: newPlaced,
-                      node: edgeNode,
-                      tiles: newTiles,
-                      axis: axis)
+                        position: position.offset(nextDirection),
+                        prefix: newPrefix,
+                        placed: newPlaced,
+                        node: edgeNode,
+                        tiles: newTiles,
+                        axis: axis)
         }
     }
     
     // MARK: - Cross Checks -
     
     // could make better by only looking at updated positions
-    func updateCrossChecks() {
+    func updateCrossChecks(tiles: [UInt8]) {
         var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
         var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
         for anchor in board.anchors() {
@@ -290,7 +289,7 @@ class GameAI {
         let (prefix, prefixValue) = check(prefix: true)
         let (suffix, suffixValue) = check(prefix: false)
         let endsValue = prefixValue + suffixValue
-
+        
         var validLetters = [UInt8: Int]()
         for letter in letters {
             guard let letterValue = TileBag.characterTileValues[letter] else { fatalError() }
@@ -305,7 +304,7 @@ class GameAI {
         }
         return validLetters
     }
-
+    
     func isLetterCrossValid(_ letter: UInt8, at position: BoardPosition, axis: Axis) -> Bool {
         switch axis {
         case .horizontal:
@@ -341,5 +340,5 @@ class GameAI {
         }
         return (prefixCopy, tilesCopy, placedCopy)
     }
-
+    
 }
