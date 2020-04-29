@@ -15,7 +15,17 @@ class GameAI {
     
     struct Move {
         let placed: [BoardPosition: UInt8]
+        let uses: Set<BoardPosition>
         let value: Int
+        
+        var isSpecial: Bool {
+            return placed.values.contains(68) || placed.values.contains(82)
+        }
+    }
+    
+    private struct CrossCheck {
+        let results: [UInt8: Int]
+        let uses: Set<BoardPosition>
     }
     
     // MARK: - Properties -
@@ -28,8 +38,8 @@ class GameAI {
     
     private var board: Board
     
-    private var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
-    private var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
+    private var verticalCrossChecks = [BoardPosition: CrossCheck]()
+    private var horizontalCrossChecks = [BoardPosition: CrossCheck]()
     
     private var moves = [Move]()
     
@@ -120,14 +130,20 @@ class GameAI {
         moves.append(move)
     }
     
-    private func score(for placed: [BoardPosition: UInt8], finalLetterPosition: BoardPosition, axis: Axis) -> Int {
+    private func score(for placed: [BoardPosition: UInt8], finalLetterPosition: BoardPosition, axis: Axis) -> (Set<BoardPosition>, Int) {
+        var usedPositions = Set<BoardPosition>()
+        
+        // TODO: add crpss checks to used positions
         // Calc value of new words along op axis
         let opAxisPointChecks = axis == .horizontal ? verticalCrossChecks : horizontalCrossChecks
         var crossPoints = 0
         for (position, letter) in placed {
             // since we only cross check anchors (open spots next to letters), non-cross checks are zero
-            let letterCrossPoints = opAxisPointChecks[position]?[letter] ?? 0
-            crossPoints += letterCrossPoints
+            if let check = opAxisPointChecks[position] {
+                let letterCrossPoints = check.results[letter] ?? 0
+                crossPoints += letterCrossPoints
+                usedPositions = usedPositions.union(check.uses)
+            }
         }
         
         let sort: ((BoardPosition, BoardPosition) -> Bool)
@@ -159,6 +175,7 @@ class GameAI {
             }
             guard let value = TileBag.characterTileValues[letter] else { fatalError() }
             coreValue += value
+            usedPositions.insert(position)
             position = position.offset(nextDirection)
         }
         
@@ -168,10 +185,11 @@ class GameAI {
         while let prevPlacement = board.placements[prevPosition] {
             guard let value = TileBag.characterTileValues[prevPlacement] else { fatalError() }
             preValue += value
+            usedPositions.insert(position)
             prevPosition = prevPosition.offset(prevDirection)
         }
         
-        return crossPoints + coreValue + preValue
+        return (usedPositions, crossPoints + coreValue + preValue)
     }
     
     private func buildSuffix(anchor: BoardPosition,
@@ -197,8 +215,8 @@ class GameAI {
         } else {
             if anchor != position && node.isEOW {
                 let prevDirection: Direction = axis == .horizontal ? .left : .top
-                let value = score(for: placed, finalLetterPosition: position.offset(prevDirection), axis: axis)
-                let move = Move(placed: placed, value: value)
+                let (uses, value) = score(for: placed, finalLetterPosition: position.offset(prevDirection), axis: axis)
+                let move = Move(placed: placed, uses: uses, value: value)
                 mergeQueue.async {
                     self.found(move: move)
                 }
@@ -252,8 +270,8 @@ class GameAI {
     
     // could make better by only looking at updated positions
     func updateCrossChecks(tiles: [UInt8]) {
-        var verticalCrossChecks = [BoardPosition: [UInt8: Int]]()
-        var horizontalCrossChecks = [BoardPosition: [UInt8: Int]]()
+        var verticalCrossChecks = [BoardPosition: CrossCheck]()
+        var horizontalCrossChecks = [BoardPosition: CrossCheck]()
         for anchor in board.anchors() {
             verticalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .vertical)
             horizontalCrossChecks[anchor] = crossCheck(board: board, for: tiles, at: anchor, axis: .horizontal)
@@ -262,10 +280,11 @@ class GameAI {
         self.horizontalCrossChecks = horizontalCrossChecks
     }
     
-    private func crossCheck(board: Board, for letters: [UInt8], at position: BoardPosition, axis: Axis) -> [UInt8: Int] {
-        func check(prefix: Bool) -> (letters: [UInt8], value: Int) {
+    private func crossCheck(board: Board, for letters: [UInt8], at position: BoardPosition, axis: Axis) -> CrossCheck {
+        func check(prefix: Bool) -> (letters: [UInt8], value: Int, uses: Set<BoardPosition>) {
             var letters = [UInt8]()
             var lettersValue = 0
+            var uses = Set<BoardPosition>()
             let direction: Direction
             if prefix {
                 direction = axis == .vertical ? .top : .left
@@ -279,15 +298,16 @@ class GameAI {
                 } else {
                     letters.append(letter)
                 }
+                uses.insert(pos)
                 pos = pos.offset(direction)
                 guard let value = TileBag.characterTileValues[letter] else { fatalError() }
                 lettersValue += value
             }
-            return (letters, lettersValue)
+            return (letters, lettersValue, uses)
         }
         
-        let (prefix, prefixValue) = check(prefix: true)
-        let (suffix, suffixValue) = check(prefix: false)
+        let (prefix, prefixValue, prefixPositions) = check(prefix: true)
+        let (suffix, suffixValue, suffixPositions) = check(prefix: false)
         let endsValue = prefixValue + suffixValue
         
         var validLetters = [UInt8: Int]()
@@ -302,18 +322,20 @@ class GameAI {
                 }
             }
         }
-        return validLetters
+        var uses = Set<BoardPosition>().union(prefixPositions).union(suffixPositions)
+        uses.insert(position)
+        return CrossCheck(results: validLetters, uses: uses)
     }
     
     func isLetterCrossValid(_ letter: UInt8, at position: BoardPosition, axis: Axis) -> Bool {
         switch axis {
         case .horizontal:
             if let crossCheck = horizontalCrossChecks[position] {
-                return crossCheck.keys.contains(letter)
+                return crossCheck.results.keys.contains(letter)
             }
         case .vertical:
             if let crossCheck = verticalCrossChecks[position] {
-                return crossCheck.keys.contains(letter)
+                return crossCheck.results.keys.contains(letter)
             }
         }
         return true

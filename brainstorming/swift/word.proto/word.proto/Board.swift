@@ -36,6 +36,17 @@ class Board: CustomStringConvertible {
         }
     }
     
+    func pickUp(except: Set<BoardPosition> = []) -> [UInt8] {
+        var copy = [BoardPosition: UInt8]()
+        for pos in except {
+            copy[pos] = placements[pos]
+        }
+        let letters = placements.values
+        placements.removeAll()
+        placements = copy
+        return Array(letters)
+    }
+    
     // MARK: - CustomStringConvertible -
     
     var description: String {

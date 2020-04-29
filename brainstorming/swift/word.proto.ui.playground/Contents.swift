@@ -23,33 +23,37 @@ extension NSAttributedString {
     }
 }
 
+class SystemImageButton: UIButton {
+    
+    // MARK: - Initalization -
+    
+    init(name: String, color: UIColor = .white) {
+        guard let image = UIImage(systemName: name) else { fatalError() }
+        super.init(frame: .zero)
+        tintColor = color
+        setImage(image, for: .normal)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
 class GameHeaderViewTopBar: UIView {
     
     // MARK: - Properties -
     
-    // should be a button
-    private let _backButtonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "chevron.left.circle")
-        imageView.tintColor = .white
-        return imageView
-    }()
-    
-    private let _quitButtonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "xmark.circle")
-        imageView.tintColor = .white
-        return imageView
-    }()
+    private let backButton = SystemImageButton(name: "chevron.left.circle")
+    private let quitButton = SystemImageButton(name: "xmark.circle")
     
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.attributedText = NSAttributedString.stylized(string: "50 Tiles Remain",
                                                            size: 18,
-                                                           weight: .bold)
+                                                           weight: .semibold)
         return label
     }()
     
@@ -57,8 +61,8 @@ class GameHeaderViewTopBar: UIView {
     
     init() {
         super.init(frame: .zero)
-        addSubview(_backButtonImageView)
-        addSubview(_quitButtonImageView)
+        addSubview(backButton)
+        addSubview(quitButton)
         addSubview(label)
         
         backgroundColor = purpleColor
@@ -73,18 +77,18 @@ class GameHeaderViewTopBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let leading: CGFloat = directionalLayoutMargins.leading * 2
-        _backButtonImageView.frame = CGRect(x: leading,
+        backButton.frame = CGRect(x: leading,
                                             y: frame.height / 2 - _imageViewSize / 2,
                                             width: _imageViewSize,
                                             height: _imageViewSize)
         
         let trailing: CGFloat = directionalLayoutMargins.trailing * 2
-        _quitButtonImageView.frame = CGRect(x: frame.width - trailing - _imageViewSize,
+        quitButton.frame = CGRect(x: frame.width - trailing - _imageViewSize,
                                             y: frame.height / 2 - _imageViewSize / 2,
                                             width: _imageViewSize,
                                             height: _imageViewSize)
         
-        let usableLabelWidth = frame.width - _backButtonImageView.frame.maxX * 2
+        let usableLabelWidth = frame.width - backButton.frame.maxX * 2
         
         
         label.frame = CGRect(x: frame.width / 2 - usableLabelWidth / 2,
@@ -409,22 +413,8 @@ class GameHeaderViewBottomBar: UIView {
     
     // MARK: - Properties -
     
-    // should be a button
-    private let _backButtonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "arrowtriangle.up.square.fill")
-        imageView.tintColor = .white
-        return imageView
-    }()
-    
-    private let _quitButtonImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "play.circle.fill")
-        imageView.tintColor = .white
-        return imageView
-    }()
+    private let pickUpButton = SystemImageButton(name: "arrowtriangle.up.square.fill")
+    private let playButton = SystemImageButton(name: "play.circle.fill")
     
     private let label: UILabel = {
         let label = UILabel()
@@ -439,8 +429,8 @@ class GameHeaderViewBottomBar: UIView {
     
     init() {
         super.init(frame: .zero)
-        addSubview(_backButtonImageView)
-        addSubview(_quitButtonImageView)
+        addSubview(pickUpButton)
+        addSubview(playButton)
         addSubview(label)
         
         backgroundColor = purpleColor
@@ -455,18 +445,18 @@ class GameHeaderViewBottomBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let leading: CGFloat = directionalLayoutMargins.leading * 2
-        _backButtonImageView.frame = CGRect(x: leading,
+        pickUpButton.frame = CGRect(x: leading,
                                             y: frame.height / 2 - _imageViewSize / 2,
                                             width: _imageViewSize,
                                             height: _imageViewSize)
         
         let trailing: CGFloat = directionalLayoutMargins.trailing * 2
-        _quitButtonImageView.frame = CGRect(x: frame.width - trailing - _imageViewSize,
+        playButton.frame = CGRect(x: frame.width - trailing - _imageViewSize,
                                             y: frame.height / 2 - _imageViewSize / 2,
                                             width: _imageViewSize,
                                             height: _imageViewSize)
         
-        let usableLabelWidth = frame.width - _backButtonImageView.frame.maxX * 2
+        let usableLabelWidth = frame.width - pickUpButton.frame.maxX * 2
         
         
         label.frame = CGRect(x: frame.width / 2 - usableLabelWidth / 2,

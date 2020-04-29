@@ -16,7 +16,6 @@ class _Game {
     
     private class _Player {
         let name: Int
-        var score = 0
         var tiles = [UInt8]()
         
         init(_ name: Int) {
@@ -33,6 +32,8 @@ class _Game {
     
     private var playerTurnIndex = 0
     private let players = [_Player(1), _Player(2), _Player(3), _Player(4)]
+    
+    private var minWordValue = 0
     
     // MARK: - Initalization -
     
@@ -53,22 +54,44 @@ class _Game {
         }
         
         let moves = gameAI.moves(for: board, with: player.tiles)
-        
-        if let move = moves.sorted(by: { $0.value > $1.value }).first {
-            player.score += move.value
+        let specialMoves = moves.filter { $0.isSpecial }
+        let regularMoves = moves
+            .filter { !$0.isSpecial }
+            .sorted(by: { $0.value > $1.value })
+
+        if let move = regularMoves.first, move.value >= minWordValue {
             for item in move.placed {
                 board.place(letter: item.value, at: item.key)
                 guard let index = player.tiles.firstIndex(of: item.value) else { fatalError() }
                 player.tiles.remove(at: index)
             }
-            player.tiles.append(contentsOf: tileBag.grab(tiles: MAX_TILE_COUNT - player.tiles.count))
-            print("\nPlayer \(player.name) goes, +\(move.value) points")
+            if player.tiles.count < MAX_TILE_COUNT {
+                player.tiles.append(contentsOf: tileBag.grab(tiles: MAX_TILE_COUNT - player.tiles.count))
+            }
+            minWordValue = move.value
+            print("\nPlayer \(player.name) goes, \(move.value) points")
+        } else if let move = specialMoves.first {
+            for item in move.placed {
+                board.place(letter: item.value, at: item.key)
+                guard let index = player.tiles.firstIndex(of: item.value) else { fatalError() }
+                player.tiles.remove(at: index)
+            }
+            if player.tiles.count < MAX_TILE_COUNT {
+                player.tiles.append(contentsOf: tileBag.grab(tiles: MAX_TILE_COUNT - player.tiles.count))
+            }
+            if move.placed.values.contains(68) {
+                board.pickUp(except: move.uses)
+                print("used a d")
+            }
+            minWordValue = 0
+            print("\nPlayer \(player.name) goes, plays special")
         } else {
-            print("\nPlayer \(player.name) can't go")
+            player.tiles.append(contentsOf: board.pickUp())
+            minWordValue = 0
+            print("\nPlayer \(player.name) can't go, picks up board")
         }
         
         print(board)
-        print("Scores: \(players.map({ "\($0.name): \($0.score)" }).joined(separator: ", "))")
         print("Letters:\n\(players.map({ "\($0.name): \(String(bytes: $0.tiles, encoding: .utf8)!)" }).joined(separator: "\n"))")
         
         if player.tiles.count == 0 {

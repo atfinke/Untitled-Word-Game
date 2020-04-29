@@ -59,3 +59,8 @@ while true {
 //print("dictionaryTime: \(dictionaryTime / trials)")
 //print("totalTime: \(totalTime / trials)")
 //print(123)
+//(lldb) po UnicodeScalar("D").value
+//68
+//
+//(lldb) po UnicodeScalar("R").value
+//82
