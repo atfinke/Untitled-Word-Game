@@ -10,7 +10,7 @@ import UIKit
 
 class GameHeaderView: UIView {
     
-    private let topBar = GameHeaderViewTopBar()
+     let topBar = GameHeaderViewTopBar()
     private let playersView: GameHeaderViewPlayersView
     private let statusBar = GameHeaderViewStatusBar()
     private let playersTurnView = GameHeaderViewPlayersTurnView()
@@ -23,7 +23,7 @@ class GameHeaderView: UIView {
         playersView = GameHeaderViewPlayersView(players: players)
         super.init(frame: .zero)
         
-        addSubview(bottomView)
+//        addSubview(bottomView)
         addSubview(topBar)
         addSubview(playersTurnView)
         addSubview(playersView)

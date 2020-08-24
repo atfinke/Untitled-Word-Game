@@ -14,23 +14,46 @@ let _imageViewSize: CGFloat = 44
 
 class ViewController: UIViewController {
 
-    let header = GameHeaderView(players: ["Andrew", "Maxine", "Garrett"])
-    let footer = GameFooterView()
+    let headerView = GameHeaderView(players: ["Andrew", "Maxine", "Garrett"])
+    let boardView = BoardView()
+    let footerView = GameFooterView()
+    let game = _Game()
     
     override func viewDidLoad() {
-        view.addSubview(header)
-        view.addSubview(footer)
+        view.addSubview(headerView)
+        view.addSubview(footerView)
+        view.addSubview(boardView)
+        
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+            let m = self.game.move()
+            DispatchQueue.main.async {
+                self.boardView.update(to: self.game.board)
+                
+                self.headerView.topBar.label.attributedText = NSAttributedString.stylized(string: "\(self.game.tileBag.remainCount()) Tiles Remain",
+                                                                          size: 18,
+                                                                          weight: .semibold)
+                
+                if let m = m {
+                    self.footerView.bottomBar.played(words: m.words)
+                }
+            }
+        }
+        
+        view.backgroundColor = .white
+        
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        header.frame = CGRect(x: 0,
+        headerView.frame = CGRect(x: 0,
                               y: 0,
                               width: view.frame.width,
-                              height: 400)
+                              height: 175)
         
         let height: CGFloat = 46 + view.safeAreaInsets.bottom
-        footer.frame = CGRect(x: 0, y: view.frame.height - height, width: view.frame.width, height: height)
+        footerView.frame = CGRect(x: 0, y: view.frame.height - height, width: view.frame.width, height: height)
+        
+        boardView.frame = CGRect(x: 0, y: headerView.frame.maxY, width: view.frame.width, height: footerView.frame.minY - headerView.frame.maxY)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

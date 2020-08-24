@@ -36,6 +36,53 @@ class GameFooterViewBottomBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func played(words: [[UInt8]]) {
+        
+        var mappedWords = [(String, Int)]()
+        
+        var score = 0
+        for word in words {
+            var wordScore = 0
+            for letter in word {
+                guard let value = TileBag.characterTileValues[letter] else { fatalError() }
+                wordScore += value
+                score += value
+            }
+            mappedWords.append((String(bytes: word, encoding: .utf8)!, wordScore))
+        }
+        
+        mappedWords.sort { lhs, rhs -> Bool in
+            lhs.1 > rhs.1
+        }
+        
+        
+        let size: CGFloat = 18
+        let weight: UIFont.Weight = .semibold
+        
+        var strings = [NSAttributedString]()
+        var images = [String]()
+        for (index, (word, wordScore)) in mappedWords.enumerated() {
+            let prefix = index == 0 ? "" : "+ "
+            let attr: NSAttributedString = .stylized(string: prefix + word, size: size, weight: weight)
+            strings.append(attr)
+            images.append(wordScore.description + ".circle")
+        }
+        
+        if words.count > 1 {
+            let attr: NSAttributedString = .stylized(string: "=", size: size, weight: weight)
+            strings.append(attr)
+            images.append(score.description + ".circle")
+        }
+        
+        let config = UIImage.SymbolConfiguration(weight: .semibold)
+        imageView.image = AttributedStringSystemImageMixer.mix(strings: strings,
+                                                               systemImages: images,
+                                                               config: config,
+                                                               imageSize: CGSize(width: 22, height: 22),
+                                                               maxSize: imageView.frame.size)
+        
+    }
+    
     // MARK: - View Life Cycle -
     
     override func layoutSubviews() {
@@ -70,26 +117,7 @@ class GameFooterViewBottomBar: UIView {
         //        imageView.backgroundColor = .black
         
         if _setImage {
-            let size: CGFloat = 18
-            let weight: UIFont.Weight = .semibold
-            let strings: [NSAttributedString] = [
-                .stylized(string: "art", size: size, weight: weight),
-                .stylized(string: "+ ra", size: size, weight: weight),
-                .stylized(string: "+ ti", size: size, weight: weight),
-                .stylized(string: "=", size: size, weight: weight),
-            ]
-            let images = [
-                "3.circle",
-                "2.circle",
-                "2.circle",
-                "7.circle"
-            ]
-            let config = UIImage.SymbolConfiguration(weight: .semibold)
-            imageView.image = AttributedStringSystemImageMixer.mix(strings: strings,
-                                                                   systemImages: images,
-                                                                   config: config,
-                                                                   imageSize: CGSize(width: 22, height: 22),
-                                                                   maxSize: imageView.frame.size)
+            
             
         }
     }

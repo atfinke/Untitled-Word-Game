@@ -1,0 +1,19 @@
+3+ Players
+
+Letters = Same distribution/values as scrabble
+Each player get 7 letters face down, 7 face up (both hidden from others, but people can know how many are in your hand)
+Rest of letters in a shared tile pile
+
+You must play a word that is worth >= points to the last point played
+- Words are valued the same way as scrabble (so you also get the value of all new words created as well)
+
+If you can’t play a valid word (or don’t want to), add all the board tiles to your hand, skip your turn
+
+*SPECIAL LETTERS*
+You can always play words if you add an R or D to the board, regardless of word letter value
+- R = <reset>: resets the required word letter value (next player can play any word)
+- D = <discard>: resets and clears all other words from board (only the word played and any new words formed stay on board). All the discarded letters are permanently out of the game (not added to tile pile)
+
+Until the tile pile is empty, always make sure you have at least 7 letters in your hand (draw after playing a word)
+Once the tile pile is empty and your hand is empty, flip over all 7 letters face down letters in front of you, that is now your hand
+Play until one player has no letters left

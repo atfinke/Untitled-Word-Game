@@ -15,7 +15,7 @@ class GameHeaderViewTopBar: UIView {
     private let backButton = SystemImageButton(name: "chevron.left.circle")
     private let quitButton = SystemImageButton(name: "xmark.circle")
     
-    private let label: UILabel = {
+     let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.attributedText = NSAttributedString.stylized(string: "50 Tiles Remain",
